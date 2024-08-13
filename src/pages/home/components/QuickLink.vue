@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { ref } from 'vue'
+
+  const links = ref([
+    { url: '@/assets/home/icon_coupon.png', text: '优惠券' },
+    { url: '@/assets/home/icon_rights.png', text: '生活权益' },
+    { url: '@/assets/home/icon_charge.png', text: '充电桩' },
+    { url: '@/assets/home/icon_drive.png', text: '专业代驾' },
+  ])
+  console.log(links.value[0].url)
+</script>
 
 <template>
   <view class="content">
@@ -28,7 +38,12 @@
         </view>
       </view>
     </view>
-    <view class="secondary"> </view>
+    <view class="secondary">
+      <view class="link" v-for="item in links" :key="item.text">
+        <image :src="item.url" mode="apsectFit" />
+        <text>{{ item.text }}</text>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -120,6 +135,23 @@
       background-color: $o-white;
       border-radius: 16rpx;
       margin-top: 24rpx;
+      padding-top: 24rpx;
+      display: flex;
+      justify-content: space-around;
+      .link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        image {
+          width: 96rpx;
+          height: 96rpx;
+        }
+        text {
+          font-size: 24rpx;
+          color: $o-black-80;
+          margin-top: 6rpx;
+        }
+      }
     }
   }
 </style>
