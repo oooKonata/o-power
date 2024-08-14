@@ -7,3 +7,17 @@ image {
   height: 100%;
   vertical-align: middle;
 }
+
+.ellipsis-200 {
+  width: 400rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-311 {
+  width: 622rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

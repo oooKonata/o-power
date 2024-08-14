@@ -39,9 +39,21 @@
       </view>
     </view>
     <view class="secondary">
-      <view class="link" v-for="item in links" :key="item.text">
-        <image :src="item.url" mode="apsectFit" />
-        <text>{{ item.text }}</text>
+      <view class="link">
+        <image src="@/assets/home/icon_coupon.png" mode="apsectFit" />
+        <text>优惠券</text>
+      </view>
+      <view class="link">
+        <image src="@/assets/home/icon_rights.png" mode="apsectFit" />
+        <text>生活权益</text>
+      </view>
+      <view class="link">
+        <image src="@/assets/home/icon_charge.png" mode="apsectFit" />
+        <text>充电桩</text>
+      </view>
+      <view class="link">
+        <image src="@/assets/home/icon_drive.png" mode="apsectFit" />
+        <text>专业代驾</text>
       </view>
     </view>
   </view>
@@ -137,11 +149,12 @@
       margin-top: 24rpx;
       padding-top: 24rpx;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       .link {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 120rpx;
         image {
           width: 96rpx;
           height: 96rpx;

@@ -37,7 +37,7 @@
           <text>开通会员享好礼</text>
           <image
             class="more"
-            src="@/assets/icons/more_small.png"
+            src="@/assets/icons/more_rights_small.png"
             mode="aspectFit" />
         </view>
       </view>
