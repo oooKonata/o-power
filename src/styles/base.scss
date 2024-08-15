@@ -1,3 +1,9 @@
+page,
+.page {
+  min-height: 100%;
+  background-color: $o-bg;
+}
+
 view {
   box-sizing: border-box;
 }

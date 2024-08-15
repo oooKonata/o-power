@@ -20,10 +20,6 @@
 
 <style scoped lang="scss">
   .page {
-    height: 100%;
-    background-color: $o-bg;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-column-center;
   }
 </style>

@@ -22,7 +22,7 @@
       <text>登录/注册</text>
     </view>
   </view>
-  <!-- 已登陆 -->
+  <!-- 已登录 -->
   <view class="content" v-else-if="loginState">
     <view class="login-left">
       <view class="border">
@@ -56,10 +56,11 @@
     border-radius: 16rpx;
     background-color: $o-white;
     margin-top: -86rpx;
+    // @include flex-between;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // position: relative;
+    position: relative;
     padding: 32rpx;
     .bg {
       z-index: -1;
