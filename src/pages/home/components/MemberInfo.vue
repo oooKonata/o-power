@@ -54,7 +54,7 @@
     width: 686rpx;
     height: 172rpx;
     border-radius: 16rpx;
-    background-color: $o-white;
+    background-color: $o-w;
     margin-top: -86rpx;
     // @include flex-between;
     display: flex;
@@ -79,12 +79,12 @@
       text {
         font-size: 28rpx;
         margin-top: 12rpx;
-        color: $o-black-80;
+        color: $o-b80;
       }
     }
     .logout-right {
       background-color: #3c3832;
-      color: $o-white;
+      color: $o-w;
       font-size: 26rpx;
       height: 64rpx;
       border-radius: 32rpx;
@@ -116,7 +116,7 @@
       .info {
         font-size: 34rpx;
         font-weight: 500;
-        color: $o-black-80;
+        color: $o-b80;
         margin-left: 24rpx;
         .desc {
           font-size: 26rpx;
@@ -134,8 +134,8 @@
       }
     }
     .login-right {
-      background-color: $o-theme;
-      color: $o-white;
+      background-color: $o-t;
+      color: $o-w;
       font-size: 26rpx;
       height: 64rpx;
       border-radius: 32rpx;

@@ -33,7 +33,7 @@
     left: 0;
     .tabs {
       font-size: 20rpx;
-      color: $o-black-40;
+      color: $o-b40;
       display: flex;
       justify-content: center;
       align-items: end;
@@ -44,7 +44,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: $o-white;
+        background-color: $o-w;
         position: relative;
         image {
           width: 48rpx;
@@ -71,7 +71,7 @@
       width: 750rpx;
       height: constant(safe-area-inset-bottom);
       height: env(safe-area-inset-bottom);
-      background-color: $o-white;
+      background-color: $o-w;
     }
   }
 </style>

@@ -20,6 +20,6 @@
 
 <style scoped lang="scss">
   .page {
-    @include flex-column-center;
+    @include flex-column;
   }
 </style>

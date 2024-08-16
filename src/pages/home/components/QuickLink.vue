@@ -68,7 +68,7 @@
       justify-content: space-between;
       align-items: center;
       .left {
-        background-color: $o-white;
+        background-color: $o-w;
         border-radius: 16rpx;
         width: 331rpx;
         height: 368rpx;
@@ -77,19 +77,19 @@
         align-items: center;
         .tag {
           background-color: #ff9259;
-          color: $o-white;
+          color: $o-w;
           font-size: 22rpx;
           padding: 3rpx 24rpx;
           border-radius: 0 0 8rpx 8rpx;
         }
         .title {
           font-size: 32rpx;
-          color: $o-black-80;
+          color: $o-b80;
           margin-top: 24rpx;
         }
         .desc {
           font-size: 24rpx;
-          color: $o-theme;
+          color: $o-t;
           margin-top: 2rpx;
         }
         image {
@@ -110,11 +110,11 @@
 
           .title {
             font-size: 32rpx;
-            color: $o-black-80;
+            color: $o-b80;
           }
           .desc {
             font-size: 24rpx;
-            color: $o-theme;
+            color: $o-t;
             margin-top: 2rpx;
           }
         }
@@ -126,14 +126,14 @@
           bottom: 16rpx;
         }
         .up {
-          background-color: $o-white;
+          background-color: $o-w;
           border-radius: 16rpx;
           width: 331rpx;
           height: 172rpx;
           position: relative;
         }
         .down {
-          background-color: $o-white;
+          background-color: $o-w;
           border-radius: 16rpx;
           width: 331rpx;
           height: 172rpx;
@@ -144,7 +144,7 @@
     .secondary {
       width: 100%;
       height: 192rpx;
-      background-color: $o-white;
+      background-color: $o-w;
       border-radius: 16rpx;
       margin-top: 24rpx;
       padding-top: 24rpx;
@@ -161,7 +161,7 @@
         }
         text {
           font-size: 24rpx;
-          color: $o-black-80;
+          color: $o-b80;
           margin-top: 6rpx;
         }
       }

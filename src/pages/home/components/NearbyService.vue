@@ -59,24 +59,24 @@
     .divider-v {
       width: 1rpx;
       height: 20rpx;
-      background-color: $o-black-20;
+      background-color: $o-b20;
       margin: 0 12rpx;
     }
     .title {
       font-size: 32rpx;
       font-weight: 500;
-      color: $o-black-80;
+      color: $o-b80;
     }
     .tags {
       display: flex;
       align-items: center;
       font-size: 24rpx;
-      color: $o-black-60;
+      color: $o-b60;
       margin-top: 32rpx;
       position: relative;
       .tag {
         height: 48rpx;
-        background-color: $o-white;
+        background-color: $o-w;
         display: flex;
         align-items: center;
         padding: 0 24rpx;
@@ -85,12 +85,12 @@
       }
       .active {
         background-color: rgb(232, 244, 240);
-        border: 1rpx solid $o-theme;
-        color: $o-theme;
+        border: 1rpx solid $o-t;
+        color: $o-t;
       }
       .more {
         font-size: 24rpx;
-        color: $o-black-40;
+        color: $o-b40;
         display: flex;
         align-items: center;
         position: absolute;
@@ -107,9 +107,9 @@
       flex-direction: column;
       align-items: center;
       .card {
-        background-color: $o-white;
+        background-color: $o-w;
         font-size: 24rpx;
-        color: $o-black-60;
+        color: $o-b60;
         border-radius: 16rpx;
         margin-top: 24rpx;
         .up {
@@ -117,14 +117,14 @@
           .name {
             font-size: 32rpx;
             font-weight: 500;
-            color: $o-black-80;
+            color: $o-b80;
           }
           .desc {
             display: flex;
             align-items: center;
             margin-top: 6rpx;
             .status {
-              color: $o-theme;
+              color: $o-t;
             }
           }
         }
@@ -138,7 +138,7 @@
           .divider-h {
             width: 622rpx;
             height: 1rpx;
-            background-color: $o-black-10;
+            background-color: $o-b10;
             position: absolute;
             top: 0;
           }
@@ -157,7 +157,7 @@
         display: flex;
         align-items: center;
         font-size: 24rpx;
-        color: $o-black-40;
+        color: $o-b40;
         padding: 32rpx 0;
       }
     }

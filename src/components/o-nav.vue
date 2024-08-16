@@ -33,7 +33,7 @@
     padding-top: env(safe-area-inset-top);
     .nav {
       z-index: 9;
-      color: $o-black-80;
+      color: $o-b80;
       width: 750rpx;
       height: 88rpx;
       display: flex;
