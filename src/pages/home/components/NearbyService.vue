@@ -52,7 +52,7 @@
 
 <style scoped lang="scss">
   .content {
-    width: 686rpx;
+    width: $o-width;
     margin-top: 32rpx;
     padding-bottom: calc(128rpx + constant(safe-area-inset-bottom));
     padding-bottom: calc(128rpx + env(safe-area-inset-bottom));
@@ -107,10 +107,9 @@
       flex-direction: column;
       align-items: center;
       .card {
-        background-color: $o-w;
+        @include o-card;
         font-size: 24rpx;
         color: $o-b60;
-        border-radius: 16rpx;
         margin-top: 24rpx;
         .up {
           padding: 32rpx;

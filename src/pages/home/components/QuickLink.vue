@@ -63,13 +63,13 @@
   .content {
     margin-top: 24rpx;
     .main {
-      width: 686rpx;
+      width: $o-width;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .left {
         background-color: $o-w;
-        border-radius: 16rpx;
+        border-radius: $o-radius;
         width: 331rpx;
         height: 368rpx;
         display: flex;
@@ -134,7 +134,7 @@
         }
         .down {
           background-color: $o-w;
-          border-radius: 16rpx;
+          border-radius: $o-radius;
           width: 331rpx;
           height: 172rpx;
           position: relative;
@@ -142,10 +142,8 @@
       }
     }
     .secondary {
-      width: 100%;
+      @include o-card;
       height: 192rpx;
-      background-color: $o-w;
-      border-radius: 16rpx;
       margin-top: 24rpx;
       padding-top: 24rpx;
       display: flex;
@@ -154,7 +152,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 120rpx;
+        width: 128rpx;
         image {
           width: 96rpx;
           height: 96rpx;

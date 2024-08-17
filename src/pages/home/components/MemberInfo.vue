@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
 
-  const loginState = ref<boolean>(true)
+  const loginState = ref<boolean>(false)
 </script>
 
 <template>
@@ -51,12 +51,9 @@
 <style scoped lang="scss">
   .content {
     z-index: 2;
-    width: 686rpx;
     height: 172rpx;
-    border-radius: 16rpx;
-    background-color: $o-w;
+    @include o-card;
     margin-top: -86rpx;
-    // @include flex-between;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,7 +84,7 @@
       color: $o-w;
       font-size: 26rpx;
       height: 64rpx;
-      border-radius: 32rpx;
+      border-radius: 999rpx;
       display: flex;
       align-items: center;
       text {
@@ -138,7 +135,7 @@
       color: $o-w;
       font-size: 26rpx;
       height: 64rpx;
-      border-radius: 32rpx;
+      border-radius: 999rpx;
       display: flex;
       align-items: center;
       text {

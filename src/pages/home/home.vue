@@ -10,7 +10,7 @@
 <template>
   <view class="page">
     <o-nav position />
-    <o-swiper class="swiper" />
+    <o-swiper />
     <MemberInfo />
     <QuickLink />
     <NearbyService />
@@ -20,6 +20,8 @@
 
 <style scoped lang="scss">
   .page {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>

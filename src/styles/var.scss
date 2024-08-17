@@ -27,8 +27,9 @@ $o-rights: rgba(203, 149, 77);
 // 警示色
 $o-warn: rgba(248, 108, 77);
 
-$o-margin: 16rpx;
-$o-padding: 24rpx;
+// 偏移量
+$o-inset: 32rpx;
+$o-width: 750rpx - $o-inset * 2;
 
 $o-radius: 16rpx;
 
@@ -36,23 +37,5 @@ $o-radius: 16rpx;
   background-color: $o-w;
   border-radius: $o-radius;
   overflow: hidden;
-  margin: 0 $o-margin;
-}
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: $o-width;
 }
