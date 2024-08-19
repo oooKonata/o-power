@@ -1,13 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-
-  const links = ref([
-    { url: '@/assets/home/icon_coupon.png', text: '优惠券' },
-    { url: '@/assets/home/icon_rights.png', text: '生活权益' },
-    { url: '@/assets/home/icon_charge.png', text: '充电桩' },
-    { url: '@/assets/home/icon_drive.png', text: '专业代驾' },
-  ])
-  console.log(links.value[0].url)
+  import { loadStaticResource } from '@/assets'
 </script>
 
 <template>
@@ -19,7 +11,9 @@
         </view>
         <text class="title"> 优惠加油 </text>
         <text class="desc">加油立享优惠</text>
-        <image src="@/assets/home/img_refuel.png" mode="aspectFit" />
+        <image
+          :src="loadStaticResource('/home/img_refuel.png')"
+          mode="aspectFit" />
       </view>
       <view class="right">
         <view class="up">
@@ -27,32 +21,44 @@
             <text class="title"> 省钱券包 </text>
             <text class="desc">畅享加油好礼</text>
           </view>
-          <image src="@/assets/home/img_coupons.png" mode="aspectFit" />
+          <image
+            :src="loadStaticResource('/home/img_coupons.png')"
+            mode="aspectFit" />
         </view>
         <view class="down">
           <view class="info">
             <text class="title"> 智能洗车 </text>
             <text class="desc">便捷优惠洗车</text>
           </view>
-          <image src="@/assets/home/img_wash.png" mode="aspectFit" />
+          <image
+            :src="loadStaticResource('/home/img_wash.png')"
+            mode="aspectFit" />
         </view>
       </view>
     </view>
     <view class="secondary">
       <view class="link">
-        <image src="@/assets/home/icon_coupon.png" mode="apsectFit" />
+        <image
+          :src="loadStaticResource('/home/icon_coupon.png')"
+          mode="apsectFit" />
         <text>优惠券</text>
       </view>
       <view class="link">
-        <image src="@/assets/home/icon_rights.png" mode="apsectFit" />
+        <image
+          :src="loadStaticResource('/home/icon_rights.png')"
+          mode="apsectFit" />
         <text>生活权益</text>
       </view>
       <view class="link">
-        <image src="@/assets/home/icon_charge.png" mode="apsectFit" />
+        <image
+          :src="loadStaticResource('/home/icon_charge.png')"
+          mode="apsectFit" />
         <text>充电桩</text>
       </view>
       <view class="link">
-        <image src="@/assets/home/icon_drive.png" mode="apsectFit" />
+        <image
+          :src="loadStaticResource('/home/icon_drive.png')"
+          mode="apsectFit" />
         <text>专业代驾</text>
       </view>
     </view>

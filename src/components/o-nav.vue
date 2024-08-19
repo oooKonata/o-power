@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { loadStaticResource } from '@/assets'
+
   defineProps<{
     title?: string
     icon?: boolean
@@ -12,14 +14,14 @@
       <view class="nav_icon" v-if="icon === true && position === false">
         <image
           style="width: 48rpx; height: 48rpx"
-          src="@/assets/icons/back.png"
+          :src="loadStaticResource('/icons/back.png')"
           mode="aspectFit"></image>
       </view>
       <view class="position" v-if="position === true && icon === false">
         <text>武汉市</text>
         <image
           style="width: 16rpx; height: 16rpx"
-          src="@/assets/icons/position_more.png"
+          :src="loadStaticResource('/icons/position_more.png')"
           mode="aspectFit" />
       </view>
       <view class="title">{{ title }}</view>

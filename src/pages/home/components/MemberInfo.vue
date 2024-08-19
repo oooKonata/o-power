@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { loadStaticResource } from '@/assets'
 
   const loginState = ref<boolean>(false)
 </script>
@@ -9,12 +10,12 @@
   <view class="content" v-if="!loginState">
     <image
       class="bg"
-      src="@/assets/icons/bg_member_login.png"
+      :src="loadStaticResource('/icons/bg_member_login.png')"
       mode="aspectFit" />
     <view class="logout-left">
       <image
         class="logo"
-        src="@/assets/icons/logo_xhdl_brand.png"
+        :src="loadStaticResource('/icons/logo_xhdl_brand.png')"
         mode="aspectFit" />
       <text>登录入会 解锁更多权益</text>
     </view>
@@ -28,7 +29,7 @@
       <view class="border">
         <image
           class="profile"
-          src="@/assets/icons/profile_default.png"
+          :src="loadStaticResource('/icons/profile_default.png')"
           mode="aspectFit" />
       </view>
       <view class="info">
@@ -37,7 +38,7 @@
           <text>开通会员享好礼</text>
           <image
             class="more"
-            src="@/assets/icons/more_rights_small.png"
+            :src="loadStaticResource('/icons/more_rights_small.png')"
             mode="aspectFit" />
         </view>
       </view>

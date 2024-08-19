@@ -1,24 +1,30 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { loadStaticResource } from '@/assets'
+</script>
 
 <template>
   <view class="content">
     <view class="tabs">
       <view class="tab">
-        <image src="@/assets/tabs/home_selected.png" mode="aspectFit" />
+        <image
+          :src="loadStaticResource('/tabs/home_selected.png')"
+          mode="aspectFit" />
         <text style="color: #189269">首页</text>
       </view>
       <view class="tab">
         <image
           class="bg-airplane"
-          src="@/assets/tabs/bg_airplane.png"
+          :src="loadStaticResource('/tabs/bg_airplane.png')"
           mode="aspectFit" />
         <image
           class="airplane"
-          src="@/assets/tabs/airplane.png"
+          :src="loadStaticResource('/tabs/airplane.png')"
           mode="aspectFit" />
       </view>
       <view class="tab">
-        <image src="@/assets/tabs/me_default.png" mode="aspectFit" />
+        <image
+          :src="loadStaticResource('tabs/me_default.png')"
+          mode="aspectFit" />
         <text>我的</text>
       </view>
     </view>

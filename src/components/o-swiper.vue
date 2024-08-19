@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { loadStaticResource } from '@/assets'
+</script>
 
 <template>
   <view class="swiper">
-    <image src="@/assets/banner/reward.png" mode="aspectFit" />
+    <image :src="loadStaticResource('/banner/reward.png')" mode="aspectFit" />
   </view>
 </template>
 
