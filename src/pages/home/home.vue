@@ -1,17 +1,17 @@
 <script setup lang="ts">
   import oNav from '@/components/o-nav.vue'
   import oSwiper from '@/components/o-swiper.vue'
-  import MemberInfo from './components/MemberInfo.vue'
   import QuickLink from './components/QuickLink.vue'
   import NearbyService from './components/NearbyService.vue'
   import oTabbar from '@/components/o-tabbar.vue'
+  import UserInfo from './components/UserInfo.vue'
 </script>
 
 <template>
   <view class="page">
     <o-nav position />
     <o-swiper />
-    <MemberInfo />
+    <UserInfo />
     <QuickLink />
     <NearbyService />
     <o-tabbar />
