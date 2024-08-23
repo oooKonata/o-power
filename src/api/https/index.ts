@@ -1,6 +1,8 @@
 const baseURL = 'https://t-travel.he-power.com.cn'
 
+import { useUserStore } from '@/store/user'
 import axios, { AxiosRequestConfig } from 'axios'
+import { storeToRefs } from 'pinia'
 
 // 适配器
 axios.defaults.adapter = config => {
@@ -38,6 +40,8 @@ const https = axios.create({
 // 请求拦截器
 https.interceptors.request.use(
   config => {
+    const { storeToken } = useUserStore()
+    config.headers.accessToken = storeToken
     return config
   },
   err => {
@@ -51,12 +55,15 @@ https.interceptors.response.use(
     const { code, msg, data } = response.data
     if (code !== 200) {
       uni.showToast(msg)
-    } else if (code === 700) {
-      // 跳转登录
-      uni.showToast({
-        title: '快去登录',
-        icon: 'none',
-      })
+      if (code === 700) {
+        const { storeIsLogin } = storeToRefs(useUserStore())
+        const { clearUserInfo } = useUserStore()
+        // 无accessToken
+        if (!storeIsLogin.value) return Promise.reject(msg)
+        clearUserInfo()
+        uni.navigateTo({ url: '/pages/login/index' })
+      }
+      return Promise.reject(msg)
     }
     return data
   },

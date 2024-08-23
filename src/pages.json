@@ -1,21 +1,27 @@
 {
   "pages": [
     {
-      "path": "pages/home/home",
+      "path": "pages/home/index",
       "style": {
         "navigationStyle": "custom"
       }
     },
     {
-      "path": "pages/airplane/airplane",
+      "path": "pages/airplane/index",
       "style": {
         "navigationBarTitleText": "飞机位"
       }
     },
     {
-      "path": "pages/me/me",
+      "path": "pages/user/index",
       "style": {
         "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录"
       }
     }
   ],
