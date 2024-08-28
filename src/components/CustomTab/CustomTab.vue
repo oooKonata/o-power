@@ -6,25 +6,15 @@
   <view class="content">
     <view class="tabs">
       <view class="tab">
-        <image
-          :src="loadStaticResource('/tabs/home_selected.png')"
-          mode="aspectFit" />
+        <image :src="loadStaticResource('/tabs/home_selected.png')" mode="aspectFit" />
         <text style="color: #189269">首页</text>
       </view>
       <view class="tab">
-        <image
-          class="bg-airplane"
-          :src="loadStaticResource('/tabs/bg_airplane.png')"
-          mode="aspectFit" />
-        <image
-          class="airplane"
-          :src="loadStaticResource('/tabs/airplane.png')"
-          mode="aspectFit" />
+        <image class="bg-airplane" :src="loadStaticResource('/tabs/bg_airplane.png')" mode="aspectFit" />
+        <image class="airplane" :src="loadStaticResource('/tabs/airplane.png')" mode="aspectFit" />
       </view>
       <view class="tab">
-        <image
-          :src="loadStaticResource('tabs/me_default.png')"
-          mode="aspectFit" />
+        <image :src="loadStaticResource('tabs/me_default.png')" mode="aspectFit" />
         <text>我的</text>
       </view>
     </view>

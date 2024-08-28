@@ -1,16 +1,16 @@
 import { UNION_CARD_STATUS } from '@/enums'
 
-export type H5Login = {
+export interface H5Login {
   phone: string
   captcha: string
 }
 
-export type Captcha = {
+export interface Captcha {
   phone: string
   action: 'login'
 }
 
-export type User = {
+export interface User {
   nickname: string
   avatar: string
   phone: string

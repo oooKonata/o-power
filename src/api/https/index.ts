@@ -1,7 +1,7 @@
 const baseURL = 'https://t-travel.he-power.com.cn'
 
 import { useUserStore } from '@/store/user'
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig } from 'axios'
 import { storeToRefs } from 'pinia'
 
 // 适配器
@@ -54,7 +54,7 @@ https.interceptors.response.use(
   response => {
     const { code, msg, data } = response.data
     if (code !== 200) {
-      uni.showToast(msg)
+      uni.showToast({ title: msg, icon: 'none', duration: 1000 })
       if (code === 700) {
         const { storeIsLogin } = storeToRefs(useUserStore())
         const { clearUserInfo } = useUserStore()

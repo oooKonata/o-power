@@ -1,20 +1,20 @@
 <script setup lang="ts">
-  import oNav from '@/components/o-nav.vue'
-  import oSwiper from '@/components/o-swiper.vue'
+  import CustomNav from '@/components/CustomNav/CustomNav.vue'
+  import CustomSwiper from '@/components/CustomSwiper/CustomSwiper.vue'
+  import UserInfo from './components/UserInfo.vue'
   import QuickLink from './components/QuickLink.vue'
   import NearbyService from './components/NearbyService.vue'
-  import oTabbar from '@/components/o-tabbar.vue'
-  import UserInfo from './components/UserInfo.vue'
+  import CustomTab from '@/components/CustomTab/CustomTab.vue'
 </script>
 
 <template>
   <view class="page">
-    <o-nav position />
-    <o-swiper />
+    <CustomNav position />
+    <CustomSwiper />
     <UserInfo />
     <QuickLink />
     <NearbyService />
-    <o-tabbar />
+    <CustomTab />
   </view>
 </template>
 

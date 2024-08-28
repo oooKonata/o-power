@@ -1,25 +1,29 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { loadStaticResource } from '@/assets'
+  import { storeToRefs } from 'pinia'
+  import { useUserStore } from '@/store/user'
 
+  const { storeToken, storeIsLogin } = storeToRefs(useUserStore())
+  console.log(storeToken.value, storeIsLogin.value)
+
+  const login = () => {
+    if (!storeIsLogin.value) {
+      uni.navigateTo({ url: '/pages/login/index' })
+    }
+  }
   const loginState = ref<boolean>(false)
 </script>
 
 <template>
   <!-- 未登录 -->
   <view class="content" v-if="!loginState">
-    <image
-      class="bg"
-      :src="loadStaticResource('/icons/bg_member_login.png')"
-      mode="aspectFit" />
+    <image class="bg" :src="loadStaticResource('/icons/bg_member_login.png')" mode="aspectFit" />
     <view class="logout-left">
-      <image
-        class="logo"
-        :src="loadStaticResource('/icons/logo_xhdl_brand.png')"
-        mode="aspectFit" />
+      <image class="logo" :src="loadStaticResource('/icons/logo_xhdl_brand.png')" mode="aspectFit" />
       <text>登录入会 解锁更多权益</text>
     </view>
-    <view class="logout-right">
+    <view class="logout-right" @click="login">
       <text>登录/注册</text>
     </view>
   </view>
@@ -27,19 +31,13 @@
   <view class="content" v-else-if="loginState">
     <view class="login-left">
       <view class="border">
-        <image
-          class="profile"
-          :src="loadStaticResource('/icons/profile_default.png')"
-          mode="aspectFit" />
+        <image class="profile" :src="loadStaticResource('/icons/profile_default.png')" mode="aspectFit" />
       </view>
       <view class="info">
         <text class="title">以珩不以茉</text>
         <view class="desc">
           <text>开通会员享好礼</text>
-          <image
-            class="more"
-            :src="loadStaticResource('/icons/more_rights_small.png')"
-            mode="aspectFit" />
+          <image class="more" :src="loadStaticResource('/icons/more_rights_small.png')" mode="aspectFit" />
         </view>
       </view>
     </view>

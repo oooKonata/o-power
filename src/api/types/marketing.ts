@@ -1,6 +1,6 @@
 import { BANNER_TYPE, BANNER_URL_TYPE } from '@/enums'
 
-export type Banner = {
+export interface Banner {
   id: number
   title: string
   img: string

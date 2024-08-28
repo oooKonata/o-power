@@ -1,9 +1,9 @@
-import { User } from '@/api/types/user'
+import type { User } from '@/api/types/user'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 export const useUserStore = defineStore(
-  'user',
+  'XHDL-USER',
   () => {
     const storeToken = ref('')
     const storeUserInfo = ref<User>()

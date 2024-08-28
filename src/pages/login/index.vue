@@ -1,36 +1,71 @@
 <script setup lang="ts">
-  import { h5Login } from '@/api/user'
+  import { getCaptcha, h5Login } from '@/api/user'
   import { loadStaticResource } from '@/assets'
-  import oNav from '@/components/o-nav.vue'
-  import { ref } from 'vue'
+  import CustomNav from '@/components/CustomNav/CustomNav.vue'
+  import { useUserStore } from '@/store/user'
+  import { storeToRefs } from 'pinia'
+  import { computed, ref } from 'vue'
 
-  const phone = ref<string>()
-  const captcha = ref<string>()
+  const { storeToken } = storeToRefs(useUserStore())
 
+  const phone = ref<string>('')
+  const captcha = ref<string>('')
   const isChecked = ref<boolean>(false)
 
-  const handelClick = () => {
-    console.log(phone.value, captcha.value, '登录成功')
-    h5Login({ phone: phone, captcha: captcha })
+  const counter = ref({ flag: false, count: 60 })
+  let timer: number
+  const sendCaptcha = async () => {
+    await getCaptcha({
+      phone: phone.value,
+      action: 'login',
+    })
+    uni.showToast({ title: '验证码发送成功', icon: 'none' })
+    timer = setInterval(() => {
+      if (counter.value.count === 0) {
+        clearInterval(timer)
+      } else {
+        counter.value.flag = true
+        counter.value.count--
+      }
+    }, 1000)
+  }
+
+  const captchaLogin = async () => {
+    if (!phone.value) {
+      uni.showToast({ title: '请填写手机号', icon: 'none' })
+      return
+    } else if (phone.value && !captcha.value) {
+      uni.showToast({ title: '请填写验证码', icon: 'none' })
+      return
+    } else if (phone.value && captcha.value && !isChecked.value) {
+      uni.showToast({ title: '请阅读并勾选隐私政策', icon: 'none' })
+      return
+    } else {
+      const data = await h5Login({ phone: phone.value, captcha: captcha.value })
+      storeToken.value = data.token
+      uni.navigateTo({ url: '/pages/home/index' })
+    }
   }
 </script>
 
 <template>
   <view class="page">
-    <o-nav icon />
+    <CustomNav icon />
     <view class="top">
       <image class="banner" :src="loadStaticResource('/banner/login.png')" mode="aspectFit" />
     </view>
     <text class="title">验证码登录</text>
-    <view class="input-box phone">
+    <view class="input phone">
       <input v-model="phone" type="number" placeholder="手机号" placeholder-style="font-size:30rpx; color:#b3b3b3" />
       <text class="desc">选择授权手机号</text>
     </view>
-    <view class="input-box captcha">
+    <view class="input captcha">
       <input v-model="captcha" type="number" placeholder="验证码" placeholder-style="font-size:30rpx; color:#b3b3b3" />
-      <text class="desc">获取验证码</text>
+      <text class="desc" :class="{ inactive: counter.flag }" @click="sendCaptcha">{{
+        counter.flag ? `${counter.count}s` + '后重新获取' : '获取验证码'
+      }}</text>
     </view>
-    <view class="btn login" @click="handelClick">登录</view>
+    <view class="btn login" :class="{ active: phone && captcha && isChecked }" @click="captchaLogin">登录</view>
     <view class="btn quick-login">手机号一键登录</view>
     <text class="register">注册账号</text>
     <view class="bottom">
@@ -64,7 +99,7 @@
       font-size: 34rpx;
       color: $o-b80;
     }
-    .input-box {
+    .input {
       @include o-card;
       height: 108rpx;
       display: flex;
@@ -75,6 +110,11 @@
       .desc {
         font-size: 26rpx;
         color: $o-t;
+      }
+    }
+    .captcha {
+      .inactive {
+        color: $o-b30;
       }
     }
     .phone {
@@ -91,6 +131,10 @@
     }
     .login {
       margin: 48rpx auto 24rpx;
+      background-color: $o-t50;
+      color: $o-w;
+    }
+    .active {
       background-color: $o-t;
       color: $o-w;
     }
