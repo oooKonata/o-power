@@ -3,8 +3,10 @@
   import { loadStaticResource } from '@/assets'
   import { storeToRefs } from 'pinia'
   import { useUserStore } from '@/store/user'
+  import { onLoad } from '@dcloudio/uni-app'
+  import { getUserInfo } from '@/api/user'
 
-  const { storeToken, storeIsLogin } = storeToRefs(useUserStore())
+  const { storeToken, storeIsLogin, storeUserInfo } = storeToRefs(useUserStore())
   console.log(storeToken.value, storeIsLogin.value)
 
   const login = () => {
@@ -13,11 +15,16 @@
     }
   }
   const loginState = ref<boolean>(false)
+
+  onLoad(async () => {
+    const data = await getUserInfo()
+    storeUserInfo.value = data
+  })
 </script>
 
 <template>
   <!-- 未登录 -->
-  <view class="content" v-if="!loginState">
+  <view class="content" v-if="!storeIsLogin">
     <image class="bg" :src="loadStaticResource('/icons/bg_member_login.png')" mode="aspectFit" />
     <view class="logout-left">
       <image class="logo" :src="loadStaticResource('/icons/logo_xhdl_brand.png')" mode="aspectFit" />
@@ -28,13 +35,13 @@
     </view>
   </view>
   <!-- 已登录 -->
-  <view class="content" v-else-if="loginState">
+  <view class="content" v-else-if="storeIsLogin">
     <view class="login-left">
       <view class="border">
-        <image class="profile" :src="loadStaticResource('/icons/profile_default.png')" mode="aspectFit" />
+        <image class="avatar" :src="storeUserInfo?.avatar" mode="aspectFit" />
       </view>
       <view class="info">
-        <text class="title">以珩不以茉</text>
+        <text>{{ storeUserInfo?.nickname }}</text>
         <view class="desc">
           <text>开通会员享好礼</text>
           <image class="more" :src="loadStaticResource('/icons/more_rights_small.png')" mode="aspectFit" />
@@ -103,7 +110,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        .profile {
+        .avatar {
           width: 96rpx;
           height: 96rpx;
           border-radius: 50%;

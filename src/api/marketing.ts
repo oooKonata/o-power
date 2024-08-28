@@ -3,5 +3,5 @@ import { request } from './https'
 import type { Banner } from './types/marketing'
 
 // banner列表
-export const bannerList = (params: { channelId: number }) =>
-  request.get<{ [key in BANNER_TYPE]: Banner[] }>('/wxapp/bannerList')
+export const getbannerList = (params: { type: BANNER_TYPE }) =>
+  request.get<{ [key in BANNER_TYPE]: Banner[] }>('/wxapp/bannerList', { params })

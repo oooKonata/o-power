@@ -1,4 +1,5 @@
 import { request } from './https'
+import type { Banner } from './types/marketing'
 import type { Captcha, H5Login, User } from './types/user'
 
 // H5登录

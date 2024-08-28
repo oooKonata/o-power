@@ -5,6 +5,13 @@
   import QuickLink from './components/QuickLink.vue'
   import NearbyService from './components/NearbyService.vue'
   import CustomTab from '@/components/CustomTab/CustomTab.vue'
+  import { onLoad } from '@dcloudio/uni-app'
+  import { getbannerList } from '@/api/marketing'
+
+  onLoad(async () => {
+    const bannerList = await getbannerList({ type: 1 })
+    console.log(bannerList, '~~~')
+  })
 </script>
 
 <template>

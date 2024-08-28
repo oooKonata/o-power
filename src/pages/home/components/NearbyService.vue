@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { onLoad } from '@dcloudio/uni-app'
   import { ref } from 'vue'
 
   const hasPosition = ref<boolean>(true)
