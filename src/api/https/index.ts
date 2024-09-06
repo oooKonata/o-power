@@ -1,8 +1,8 @@
-const baseURL = 'https://t-travel.he-power.com.cn'
-
 import { useUserStore } from '@/store/user'
 import axios, { type AxiosRequestConfig } from 'axios'
 import { storeToRefs } from 'pinia'
+
+const baseURL = 'https://t-travel.he-power.com.cn'
 
 // 适配器
 axios.defaults.adapter = config => {
@@ -77,7 +77,7 @@ export const request = {
   get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return https.get(url, config)
   },
-  post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     return https.post(url, data, config)
   },
 }

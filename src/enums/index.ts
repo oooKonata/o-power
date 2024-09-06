@@ -10,15 +10,15 @@ export enum UNION_CARD_STATUS {
 
 /**
  * @description banner类型
- * 1-首页顶部 2-首页弹窗 3-附近服务 4-优惠加油 5-洗车 6-生活权益
+ * 1-首页顶部 4-优惠加油 5-智能洗车 6-生活权益 8-省钱券包 9-会员中心 
  */
 export enum BANNER_TYPE {
   HOME_TOP = 1,
-  HOME_POPUP = 2,
-  HOME_NEARBY = 3,
   OIL_HOME = 4,
   WASH_HOME = 5,
   RIGHTS_HOME = 6,
+  COUPONS = 8,
+  VIP_CENTER = 9
 }
 
 /**

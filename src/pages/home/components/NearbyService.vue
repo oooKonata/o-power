@@ -1,9 +1,8 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
-  import { onLoad } from '@dcloudio/uni-app'
   import { ref } from 'vue'
 
-  const hasPosition = ref<boolean>(true)
+  const hasPosition = ref<boolean>(false)
 </script>
 
 <template>
@@ -54,9 +53,10 @@
       </view>
     </view>
     <view class="no-position" v-if="!hasPosition">
-      <image class="img" :src="loadStaticResource('/icons/no_position.png')" mode="scaleToFill" />
-      <view class="text">
-        <text class="title">您未授权定位</text>
+      <image class="bg" :src="loadStaticResource('/home/img_position_bg.png')" mode="scaleToFill" />
+      <image class="position" :src="loadStaticResource('/icons/no_position.png')" mode="scaleToFill" />
+      <view class="wrapper">
+        <text class="tips">您未授权定位</text>
         <text class="desc">我们无法为您匹配附近服务</text>
       </view>
       <view class="btn">
@@ -182,21 +182,26 @@
       width: $o-width;
       height: 144rpx;
       margin-bottom: 32rpx;
-      background-color: $o-t-bg;
       border-radius: 16rpx;
-      border: 2rpx dotted $o-t;
       position: relative;
-      .img {
+      .bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .position {
         width: 48rpx;
         height: 48rpx;
         margin-left: 32rpx;
       }
-      .text {
+      .wrapper {
         display: flex;
         flex-direction: column;
         margin-left: 28rpx;
-        .title {
+        z-index: 1;
+        .tips {
           font-size: 28rpx;
+          font-weight: 500;
           color: $o-b80;
         }
         .desc {

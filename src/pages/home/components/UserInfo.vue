@@ -14,7 +14,6 @@
       uni.navigateTo({ url: '/pages/login/index' })
     }
   }
-  const loginState = ref<boolean>(false)
 
   onLoad(async () => {
     const data = await getUserInfo()

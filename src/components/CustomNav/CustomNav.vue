@@ -12,17 +12,11 @@
   <view class="content">
     <view class="nav">
       <view class="nav_icon" v-if="icon === true && position === false">
-        <image
-          style="width: 48rpx; height: 48rpx"
-          :src="loadStaticResource('/icons/back.png')"
-          mode="aspectFit"></image>
+        <image style="width: 48rpx; height: 48rpx" :src="loadStaticResource('/icons/back.png')" mode="aspectFit"></image>
       </view>
       <view class="position" v-if="position === true && icon === false">
-        <text>武汉市</text>
-        <image
-          style="width: 16rpx; height: 16rpx"
-          :src="loadStaticResource('/icons/position_more.png')"
-          mode="aspectFit" />
+        <text>未授权定位</text>
+        <image style="width: 16rpx; height: 16rpx" :src="loadStaticResource('/icons/position_more.png')" mode="aspectFit" />
       </view>
       <view class="title">{{ title }}</view>
     </view>

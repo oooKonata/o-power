@@ -6,11 +6,24 @@
   import NearbyService from './components/NearbyService.vue'
   import CustomTab from '@/components/CustomTab/CustomTab.vue'
   import { onLoad } from '@dcloudio/uni-app'
-  import { getbannerList } from '@/api/marketing'
+  import { getbannerList, getCityList } from '@/api/common'
+  import { storeToRefs } from 'pinia'
+  import { useUserStore } from '@/store/user'
+  import { getUserInfo } from '@/api/user'
+  import { useCacheStore } from '@/store/cache'
+  import { useStoreLocation } from '@/store/location'
+
+  const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
+  const { storeBannerList } = storeToRefs(useCacheStore())
 
   onLoad(async () => {
-    const bannerList = await getbannerList({ type: 1 })
-    console.log(bannerList, '~~~')
+    if (storeIsLogin.value) {
+      const data = await getUserInfo()
+      storeUserInfo.value = data
+    }
+    getbannerList().then(res => {
+      storeBannerList.value = res
+    })
   })
 </script>
 
