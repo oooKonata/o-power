@@ -6,19 +6,13 @@
   import { onLoad } from '@dcloudio/uni-app'
   import { getUserInfo } from '@/api/user'
 
-  const { storeToken, storeIsLogin, storeUserInfo } = storeToRefs(useUserStore())
-  console.log(storeToken.value, storeIsLogin.value)
+  const { storeIsLogin, storeUserInfo } = storeToRefs(useUserStore())
 
   const login = () => {
     if (!storeIsLogin.value) {
       uni.navigateTo({ url: '/pages/login/index' })
     }
   }
-
-  onLoad(async () => {
-    const data = await getUserInfo()
-    storeUserInfo.value = data
-  })
 </script>
 
 <template>
