@@ -7,8 +7,6 @@ const amapPlugin = new amap.AMapWX({
   key: '49df2ce5b90af9afa71c747e38c3095a',
 })
 
-console.log(amapPlugin, '000')
-
 export const useLocationStore = defineStore(
   'XHDL-LOCATION',
   () => {

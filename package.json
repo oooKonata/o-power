@@ -43,6 +43,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@dcloudio/uni-app": "3.0.0-4020420240722002",
     "@dcloudio/uni-app-harmony": "3.0.0-4020420240722002",
     "@dcloudio/uni-app-plus": "3.0.0-4020420240722002",

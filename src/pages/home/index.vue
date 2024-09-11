@@ -12,6 +12,7 @@
   import { getUserInfo } from '@/api/user'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
+  import { getPosition, location } from '@/libs'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())
@@ -25,9 +26,10 @@
     // getbannerList().then(res => {
     //   storeBannerList.value = res
     // })
-    console.log('~~~')
 
-    getLocation()
+    // getLocation()
+    getPosition()
+    // console.log(location)
   })
 </script>
 
