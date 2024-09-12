@@ -11,12 +11,9 @@
   import { useUserStore } from '@/store/user'
   import { getUserInfo } from '@/api/user'
   import { useCacheStore } from '@/store/cache'
-  import { useLocationStore } from '@/store/location'
-  import { getPosition, location } from '@/libs'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
-  const { storeBannerList } = storeToRefs(useCacheStore())
-  const { getLocation } = useLocationStore()
+  // const { storeBannerList } = storeToRefs(useCacheStore())
 
   onLoad(async () => {
     if (storeIsLogin.value) {
@@ -26,10 +23,6 @@
     // getbannerList().then(res => {
     //   storeBannerList.value = res
     // })
-
-    // getLocation()
-    getPosition()
-    // console.log(location)
   })
 </script>
 
