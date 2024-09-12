@@ -11,6 +11,7 @@
   import { useUserStore } from '@/store/user'
   import { getUserInfo } from '@/api/user'
   import { useCacheStore } from '@/store/cache'
+  import { getLocation } from '@/libs'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   // const { storeBannerList } = storeToRefs(useCacheStore())
@@ -18,11 +19,16 @@
   onLoad(async () => {
     if (storeIsLogin.value) {
       const data = await getUserInfo()
+      console.log('data', data)
+
       storeUserInfo.value = data
     }
     // getbannerList().then(res => {
     //   storeBannerList.value = res
     // })
+
+    const location = await getLocation()
+    console.log('location', location)
   })
 </script>
 
