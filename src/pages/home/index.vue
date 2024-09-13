@@ -19,7 +19,6 @@
   onLoad(async () => {
     if (storeIsLogin.value) {
       const data = await getUserInfo()
-      console.log('data', data)
 
       storeUserInfo.value = data
     }
@@ -27,8 +26,11 @@
     //   storeBannerList.value = res
     // })
 
-    const location = await getLocation()
-    console.log('location', location)
+    // getLocation().then((data: any) => {
+    //   console.log('000', data)
+    // })
+
+    getLocation()
   })
 </script>
 
