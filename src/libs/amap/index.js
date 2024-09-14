@@ -5,7 +5,13 @@ function AMapWX(a) {
 }
 AMapWX.prototype.getWxLocation = function (a, b) {
   uni.getLocation({
-    type: 'gcj02',
+    /* 
+      地球坐标系 WGS84：常见于 GPS 设备，Google 地图等国际标准的坐标体系。
+      火星坐标系 GCJ-02：中国国内使用的被强制加密后的坐标体系，高德坐标就属于该种坐标体系。
+      百度坐标系 BD-09：百度地图所使用的坐标体系，是在火星坐标系的基础上又进行了一次加密处理。
+    */
+    type: 'wgs84',
+    // type: 'gcj-02',
     success: function (c) {
       c = c.longitude + ',' + c.latitude
       uni.setStorage({ key: 'userLocation', data: c })

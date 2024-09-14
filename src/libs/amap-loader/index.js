@@ -7,6 +7,17 @@ window._AMapSecurityConfig = {
 
 let AMap
 
+let location = {
+  longitude: '',
+  latitude: '',
+  provinceCode: '',
+  province: '',
+  cityCode: '',
+  city: '',
+  adCode: '',
+}
+
+// 初始化AMap
 async function init() {
   AMap = await AMapLoader.load({
     key: '39371e6e81984c16294bb4aea1351304',
@@ -15,23 +26,18 @@ async function init() {
   })
 }
 
-//
-
-async function wrapper(fun) {
+// 确保能获取AMap
+async function wrapper(fn) {
   if (AMap) {
-    return fun()
+    return fn()
   } else {
     await init()
-    return fun()
+    return fn()
   }
 }
 
-const getLocation2 = () => {
-  return wrapper(() => {
-    11111111
-  })
-}
-const getLocation = () => {
+// 获取定位信息
+const getLocationH5 = () => {
   return wrapper(async () => {
     let { promise, resolve, reject } = Promise.withResolvers()
 
@@ -41,15 +47,6 @@ const getLocation = () => {
     })
     // 获取逆编码后地址信息
     geolocation.getCurrentPosition((status, result) => {
-      let location = {
-        longitude: '',
-        latitude: '',
-        provinceCode: '',
-        province: '',
-        cityCode: '',
-        city: '',
-        adCode: '',
-      }
       if (status === 'complete') {
         const { province, citycode, city, adcode } = result.addressComponent
         const { lng, lat } = result.position
@@ -62,16 +59,31 @@ const getLocation = () => {
           city: city,
           adCode: adcode,
         }
-
         resolve(location)
       } else {
         reject(result.message)
       }
     })
-
     return promise
   })
 }
-//
 
-export { getLocation }
+// 获取天气信息
+const getWeatherH5 = () => {
+  return new Promise((resolve, reject) => {
+    wrapper(async () => {
+      const getweather = new AMap.Weather()
+      await getLocationH5()
+      getweather.getLive((location.adCode), (err, data) => {
+        if (!err) {
+          resolve(data)
+        } else {
+          console.log('获取天气失败', err)
+          reject(err)
+        }
+      })
+    })
+  })
+}
+
+export { getLocationH5, getWeatherH5 }
