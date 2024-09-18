@@ -1,7 +1,11 @@
-import type { City, Location } from '@/api/types/common'
-import { getLocationWX } from '@/libs'
+import type { Location } from '@/api/types/common'
+import { getLocationH5, getLocationWX } from '@/libs'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+
+defineProps<{
+  current: number
+}>()
 
 export const useLocationStore = defineStore(
   'XHDL-LOCATION',
@@ -9,11 +13,37 @@ export const useLocationStore = defineStore(
     const storeLocation = ref<Location>()
     const hasLocation = computed(() => !!storeLocation.value)
 
-    getLocationWX()
+    const getLocation = async () => {
+      let res = ref<Location>()
+      // #ifdef MP-WEIXIN
+      res.value = await getLocationWX()
+      // #endif
+
+      // #ifdef H5
+      res.value = await getLocationH5()
+      // #endif
+
+      if (res) {
+        storeLocation.value = res.value
+        uni.showToast({ title: '定位成功', icon: 'none' })
+      } else {
+        uni.showToast({ title: '定位异常，将使用默认定位', icon: 'none' })
+        storeLocation.value = {
+          longitude: 114.358818,
+          latitude: 30.579854,
+          provinceCode: '420000',
+          province: '湖北省',
+          cityCode: '420100',
+          city: '武汉市',
+          adCode: '420100',
+        }
+      }
+    }
 
     return {
       storeLocation,
       hasLocation,
+      getLocation,
     }
   },
   {

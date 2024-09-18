@@ -9,14 +9,18 @@
   import { storeToRefs } from 'pinia'
   import { useUserStore } from '@/store/user'
   import { getUserInfo } from '@/api/user'
+  import { useLocationStore } from '@/store/location'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
+  const { getLocation } = useLocationStore()
 
   onLoad(async () => {
     if (storeIsLogin.value) {
       const data = await getUserInfo()
       storeUserInfo.value = data
     }
+
+    // getLocation()
   })
 </script>
 
