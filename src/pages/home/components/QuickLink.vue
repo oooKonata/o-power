@@ -11,7 +11,7 @@
         </view>
         <text class="title"> 优惠加油 </text>
         <text class="desc">加油立享优惠</text>
-        <image :src="loadStaticResource('/home/img_refuel.png')" mode="aspectFit" />
+        <image class="img" :src="loadStaticResource('/home/img_refuel.png')" mode="aspectFit" />
       </view>
       <view class="right">
         <view class="up">
@@ -19,33 +19,33 @@
             <text class="title"> 省钱券包 </text>
             <text class="desc">畅享加油好礼</text>
           </view>
-          <image :src="loadStaticResource('/home/img_coupons.png')" mode="aspectFit" />
+          <image class="img" :src="loadStaticResource('/home/img_coupons.png')" mode="aspectFit" />
         </view>
         <view class="down">
           <view class="info">
             <text class="title"> 智能洗车 </text>
             <text class="desc">便捷优惠洗车</text>
           </view>
-          <image :src="loadStaticResource('/home/img_wash.png')" mode="aspectFit" />
+          <image class="img" :src="loadStaticResource('/home/img_wash.png')" mode="aspectFit" />
         </view>
       </view>
     </view>
     <view class="secondary">
       <view class="link">
-        <image :src="loadStaticResource('/home/icon_coupon.png')" mode="apsectFit" />
-        <text>优惠券</text>
+        <image class="img" :src="loadStaticResource('/home/icon_coupon.png')" mode="apsectFit" />
+        <text class="text">优惠券</text>
       </view>
       <view class="link">
-        <image :src="loadStaticResource('/home/icon_rights.png')" mode="apsectFit" />
-        <text>生活权益</text>
+        <image class="img" :src="loadStaticResource('/home/icon_rights.png')" mode="apsectFit" />
+        <text class="text">生活权益</text>
       </view>
       <view class="link">
-        <image :src="loadStaticResource('/home/icon_charge.png')" mode="apsectFit" />
-        <text>充电桩</text>
+        <image class="img" :src="loadStaticResource('/home/icon_charge.png')" mode="apsectFit" />
+        <text class="text">充电桩</text>
       </view>
       <view class="link">
-        <image :src="loadStaticResource('/home/icon_drive.png')" mode="apsectFit" />
-        <text>专业代驾</text>
+        <image class="img" :src="loadStaticResource('/home/icon_drive.png')" mode="apsectFit" />
+        <text class="text">专业代驾</text>
       </view>
     </view>
   </view>
@@ -85,7 +85,7 @@
           color: $o-t;
           margin-top: 2rpx;
         }
-        image {
+        .img {
           margin-top: 28rpx;
           width: 231rpx;
           height: 168rpx;
@@ -112,7 +112,7 @@
             margin-top: 2rpx;
           }
         }
-        image {
+        .img {
           width: 132rpx;
           height: 112rpx;
           position: absolute;
@@ -147,11 +147,11 @@
         flex-direction: column;
         align-items: center;
         width: 128rpx;
-        image {
+        .img {
           width: 96rpx;
           height: 96rpx;
         }
-        text {
+        .text {
           font-size: 24rpx;
           color: $o-b80;
           margin-top: 6rpx;

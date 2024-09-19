@@ -21,7 +21,7 @@
         </view>
         <view class="more">
           <text>查看全部</text>
-          <image src="@/assets/icons/more_small.png" mode="scaleToFill" />
+          <image class="icon_more" src="@/assets/icons/more_small.png" mode="scaleToFill" />
         </view>
       </view>
       <view class="cards">
@@ -39,7 +39,7 @@
             <text class="ellipsis-200"> 武汉市洪山区徐东大街59号(汪家墩地铁站E口步行140米) </text>
             <view class="nav">
               <text>1.4公里</text>
-              <image src="@/assets/icons/nav.png" mode="aspectFit" />
+              <image class="img" src="@/assets/icons/nav.png" mode="aspectFit" />
             </view>
           </view>
         </view>
@@ -111,7 +111,7 @@
         align-items: center;
         position: absolute;
         right: 0;
-        image {
+        .icon_more {
           width: 16rpx;
           height: 32rpx;
           margin-left: 4rpx;
@@ -160,7 +160,7 @@
           .nav {
             display: flex;
             align-items: center;
-            image {
+            .img {
               width: 48rpx;
               height: 48rpx;
               margin-left: 16rpx;

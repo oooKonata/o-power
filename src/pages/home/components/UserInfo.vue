@@ -21,10 +21,10 @@
     <image class="bg" :src="loadStaticResource('/icons/bg_member_login.png')" mode="aspectFit" />
     <view class="logout-left">
       <image class="logo" :src="loadStaticResource('/icons/logo_xhdl_brand.png')" mode="aspectFit" />
-      <text>登录入会 解锁更多权益</text>
+      <text class="text">登录入会 解锁更多权益</text>
     </view>
     <view class="logout-right" @click="login">
-      <text>登录/注册</text>
+      <text class="text">登录/注册</text>
     </view>
   </view>
   <!-- 已登录 -->
@@ -34,15 +34,15 @@
         <image class="avatar" :src="storeUserInfo?.avatar" mode="aspectFit" />
       </view>
       <view class="info">
-        <text>{{ storeUserInfo?.nickname }}</text>
+        <text class="text">{{ storeUserInfo?.nickname }}</text>
         <view class="desc">
-          <text>开通会员享好礼</text>
+          <text class="text">开通会员享好礼</text>
           <image class="more" :src="loadStaticResource('/icons/more_rights_small.png')" mode="aspectFit" />
         </view>
       </view>
     </view>
     <view class="login-right">
-      <text>8张优惠券</text>
+      <text class="text">8张优惠券</text>
     </view>
   </view>
 </template>
@@ -72,7 +72,7 @@
         height: 52rpx;
         width: 272rpx;
       }
-      text {
+      .text {
         font-size: 28rpx;
         margin-top: 12rpx;
         color: $o-b80;
@@ -86,7 +86,7 @@
       border-radius: 999rpx;
       display: flex;
       align-items: center;
-      text {
+      .text {
         margin: 0 32rpx;
       }
     }
@@ -137,7 +137,7 @@
       border-radius: 999rpx;
       display: flex;
       align-items: center;
-      text {
+      .text {
         margin: 0 32rpx;
       }
     }

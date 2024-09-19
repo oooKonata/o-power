@@ -31,7 +31,7 @@
     <UserInfo />
     <QuickLink />
     <NearbyService />
-    <CustomTab />
+    <CustomTab :current="0" />
   </view>
 </template>
 

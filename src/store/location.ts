@@ -1,11 +1,14 @@
 import type { Location } from '@/api/types/common'
-import { getLocationH5, getLocationWX } from '@/libs'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
-defineProps<{
-  current: number
-}>()
+// #ifdef MP-WEIXIN
+import { getLocationWX } from '@/libs'
+// #endif
+
+// #ifdef H5
+import { getLocationH5 } from '@/libs'
+// #endif
 
 export const useLocationStore = defineStore(
   'XHDL-LOCATION',
@@ -15,6 +18,7 @@ export const useLocationStore = defineStore(
 
     const getLocation = async () => {
       let res = ref<Location>()
+
       // #ifdef MP-WEIXIN
       res.value = await getLocationWX()
       // #endif

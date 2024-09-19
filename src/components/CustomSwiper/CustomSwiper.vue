@@ -4,7 +4,7 @@
 
 <template>
   <view class="swiper">
-    <image :src="loadStaticResource('/banner/reward.png')" mode="aspectFit" />
+    <image class="image" :src="loadStaticResource('/banner/reward.png')" mode="aspectFit" />
   </view>
 </template>
 
@@ -12,7 +12,7 @@
   .swiper {
     margin-top: calc(-88rpx - constant(safe-area-inset-top));
     margin-top: calc(-88rpx - env(safe-area-inset-top));
-    image {
+    .image {
       width: 750rpx;
       height: 534rpx;
     }
