@@ -27,9 +27,7 @@
     },
   ])
 
-  const changeSelect = (item: any, index: number) => {
-    console.log(index)
-
+  const changeSelect = (item: any) => {
     uni.switchTab({ url: item.pagePath })
   }
 </script>
@@ -37,7 +35,7 @@
 <template>
   <view class="content">
     <image :src="loadStaticResource('/tabs/bg_airplane.png')" class="bg-airplane" />
-    <view v-for="(item, index) in tabbarList" :key="index" class="tab" @click="changeSelect(item, index)">
+    <view v-for="(item, index) in tabbarList" :key="index" class="tab" @click="changeSelect(item)">
       <image
         :src="current === index ? item.selectedIconPath : item.iconPath"
         class="image"

@@ -19,8 +19,7 @@
       const data = await getUserInfo()
       storeUserInfo.value = data
     }
-
-    // getLocation()
+    getLocation()
   })
 </script>
 

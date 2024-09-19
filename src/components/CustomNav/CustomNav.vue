@@ -1,28 +1,30 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { useLocationStore } from '@/store/location'
+  import { storeToRefs } from 'pinia'
 
   defineProps<{
     title?: string
     icon?: boolean
     position?: boolean
   }>()
+
+  const { storeLocation } = storeToRefs(useLocationStore())
+
+  const handleClick = () => {
+    uni.navigateTo({ url: '/pages/location/index' })
+  }
 </script>
 
 <template>
   <view class="content">
     <view class="nav">
       <view class="nav_icon" v-if="icon === true && position === false">
-        <image
-          style="width: 48rpx; height: 48rpx"
-          :src="loadStaticResource('/icons/back.png')"
-          mode="aspectFit"></image>
+        <image style="width: 48rpx; height: 48rpx" :src="loadStaticResource('/icons/back.png')" />
       </view>
-      <view class="position" v-if="position === true && icon === false">
-        <text class="text">未授权定位</text>
-        <image
-          style="width: 16rpx; height: 16rpx"
-          :src="loadStaticResource('/icons/position_more.png')"
-          mode="aspectFit" />
+      <view class="position" v-if="position === true && icon === false" @click="handleClick">
+        <text class="text">{{ storeLocation?.city || '未授权定位' }}</text>
+        <image style="width: 16rpx; height: 16rpx" :src="loadStaticResource('/icons/position_more.png')" />
       </view>
       <view class="title">{{ title }}</view>
     </view>
