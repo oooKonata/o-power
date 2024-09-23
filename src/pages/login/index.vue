@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { getCaptcha, h5Login } from '@/api/user'
   import { loadStaticResource } from '@/assets'
-  import CustomNav from '@/components/CustomNav/CustomNav.vue'
+  import ONav from '@/components/o-nav/o-nav.vue'
   import { useUserStore } from '@/store/user'
   import { storeToRefs } from 'pinia'
   import { computed, ref } from 'vue'
@@ -50,7 +50,7 @@
 
 <template>
   <view class="page">
-    <CustomNav icon />
+    <ONav type="back_w" />
     <view class="top">
       <image class="banner" :src="loadStaticResource('/banner/login.png')" mode="aspectFit" />
     </view>
@@ -61,9 +61,7 @@
     </view>
     <view class="input captcha">
       <input v-model="captcha" type="number" placeholder="验证码" placeholder-style="font-size:30rpx; color:#b3b3b3" />
-      <text class="desc" :class="{ inactive: counter.flag }" @click="sendCaptcha">{{
-        counter.flag ? `${counter.count}s` + '后重新获取' : '获取验证码'
-      }}</text>
+      <text class="desc" :class="{ inactive: counter.flag }" @click="sendCaptcha">{{ counter.flag ? `${counter.count}s` + '后重新获取' : '获取验证码' }}</text>
     </view>
     <view class="btn login" :class="{ active: phone && captcha && isChecked }" @click="captchaLogin">登录</view>
     <view class="btn quick-login">手机号一键登录</view>

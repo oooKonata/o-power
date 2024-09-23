@@ -3,13 +3,13 @@
 </script>
 
 <template>
-  <view class="swiper">
+  <view class="o-swiper">
     <image class="image" :src="loadStaticResource('/banner/reward.png')" mode="aspectFit" />
   </view>
 </template>
 
 <style scoped lang="scss">
-  .swiper {
+  .o-swiper {
     margin-top: calc(-88rpx - constant(safe-area-inset-top));
     margin-top: calc(-88rpx - env(safe-area-inset-top));
     .image {

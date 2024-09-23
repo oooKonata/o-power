@@ -2,7 +2,7 @@
   import { loadStaticResource } from '@/assets'
   import { ref } from 'vue'
 
-  const hasPosition = ref<boolean>(false)
+  const hasPosition = ref<boolean>(true)
 </script>
 
 <template>

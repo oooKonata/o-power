@@ -25,7 +25,7 @@ export interface City {
   acronym: string
   ucfirst: string
   isShow: number
-  isHot: number
+  province: string
 }
 
 export interface Location {
@@ -36,4 +36,9 @@ export interface Location {
   cityCode: string
   city: string
   adCode: string
+}
+
+export interface CityListWithPy {
+  title: string
+  list: City[]
 }
