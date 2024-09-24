@@ -17,10 +17,10 @@
 
 <template>
   <!-- 未登录 -->
-  <view class="content" v-if="!storeIsLogin">
-    <image class="bg" :src="loadStaticResource('/icons/bg_member_login.png')" mode="aspectFit" />
+  <view v-if="!storeIsLogin" class="content">
+    <image class="bg" :src="loadStaticResource('/icons/bg_member_login.png')" />
     <view class="logout-left">
-      <image class="logo" :src="loadStaticResource('/icons/logo_xhdl_brand.png')" mode="aspectFit" />
+      <image class="logo" :src="loadStaticResource('/icons/logo_xhdl_brand.png')" />
       <text class="text">登录入会 解锁更多权益</text>
     </view>
     <view class="logout-right" @click="login">
@@ -28,16 +28,16 @@
     </view>
   </view>
   <!-- 已登录 -->
-  <view class="content" v-else-if="storeIsLogin">
+  <view v-else-if="storeIsLogin" class="content">
     <view class="login-left">
       <view class="border">
-        <image class="avatar" :src="storeUserInfo?.avatar" mode="aspectFit" />
+        <image class="avatar" :src="storeUserInfo?.avatar" />
       </view>
       <view class="info">
         <text class="text">{{ storeUserInfo?.nickname }}</text>
         <view class="desc">
           <text class="text">开通会员享好礼</text>
-          <image class="more" :src="loadStaticResource('/icons/more_rights_small.png')" mode="aspectFit" />
+          <image class="more" :src="loadStaticResource('/icons/more_rights_small.png')" />
         </view>
       </view>
     </view>

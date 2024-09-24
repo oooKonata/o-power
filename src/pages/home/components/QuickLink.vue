@@ -11,7 +11,7 @@
         </view>
         <text class="title"> 优惠加油 </text>
         <text class="desc">加油立享优惠</text>
-        <image class="img" :src="loadStaticResource('/home/img_refuel.png')" mode="aspectFit" />
+        <image class="img" :src="loadStaticResource('/home/img_refuel.png')" />
       </view>
       <view class="right">
         <view class="up">
@@ -19,32 +19,32 @@
             <text class="title"> 省钱券包 </text>
             <text class="desc">畅享加油好礼</text>
           </view>
-          <image class="img" :src="loadStaticResource('/home/img_coupons.png')" mode="aspectFit" />
+          <image class="img" :src="loadStaticResource('/home/img_coupons.png')" />
         </view>
         <view class="down">
           <view class="info">
             <text class="title"> 智能洗车 </text>
             <text class="desc">便捷优惠洗车</text>
           </view>
-          <image class="img" :src="loadStaticResource('/home/img_wash.png')" mode="aspectFit" />
+          <image class="img" :src="loadStaticResource('/home/img_wash.png')" />
         </view>
       </view>
     </view>
     <view class="secondary">
       <view class="link">
-        <image class="img" :src="loadStaticResource('/home/icon_coupon.png')" mode="apsectFit" />
+        <image class="img" :src="loadStaticResource('/home/icon_coupon.png')" />
         <text class="text">优惠券</text>
       </view>
       <view class="link">
-        <image class="img" :src="loadStaticResource('/home/icon_rights.png')" mode="apsectFit" />
+        <image class="img" :src="loadStaticResource('/home/icon_rights.png')" />
         <text class="text">生活权益</text>
       </view>
       <view class="link">
-        <image class="img" :src="loadStaticResource('/home/icon_charge.png')" mode="apsectFit" />
+        <image class="img" :src="loadStaticResource('/home/icon_charge.png')" />
         <text class="text">充电桩</text>
       </view>
       <view class="link">
-        <image class="img" :src="loadStaticResource('/home/icon_drive.png')" mode="apsectFit" />
+        <image class="img" :src="loadStaticResource('/home/icon_drive.png')" />
         <text class="text">专业代驾</text>
       </view>
     </view>

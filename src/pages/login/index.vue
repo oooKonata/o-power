@@ -52,7 +52,7 @@
   <view class="page">
     <ONav type="back_w" />
     <view class="top">
-      <image class="banner" :src="loadStaticResource('/banner/login.png')" mode="aspectFit" />
+      <image class="banner" :src="loadStaticResource('/banner/login.png')" />
     </view>
     <text class="title">验证码登录</text>
     <view class="input phone">
@@ -67,11 +67,7 @@
     <view class="btn quick-login">手机号一键登录</view>
     <text class="register">注册账号</text>
     <view class="bottom">
-      <image
-        class="radio"
-        :src="isChecked ? loadStaticResource('/icons/selected.png') : loadStaticResource('/icons/unselect.png')"
-        @click="isChecked = !isChecked"
-        mode="scaleToFill" />
+      <image class="radio" :src="isChecked ? loadStaticResource('/icons/selected.png') : loadStaticResource('/icons/unselect.png')" @click="isChecked = !isChecked" />
       <text>我已阅读并同意</text>
       <text class="protocol">《星和动力隐私政策》</text>
     </view>
