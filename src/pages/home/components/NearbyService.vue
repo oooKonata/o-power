@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { loadStaticResource } from '@/assets'
-  import { ref } from 'vue'
+import { loadStaticResource } from '@/assets'
+import { ref } from 'vue'
 
-  const hasPosition = ref<boolean>(true)
+const hasPosition = ref<boolean>(true)
 </script>
 
 <template>
@@ -36,7 +36,7 @@
           </view>
           <view class="down">
             <view class="divider-h"></view>
-            <text class="ellipsis-200"> 武汉市洪山区徐东大街59号(汪家墩地铁站E口步行140米) </text>
+            <text class="ellipsis-200">武汉市洪山区徐东大街59号(汪家墩地铁站E口步行140米)</text>
             <view class="nav">
               <text>1.4公里</text>
               <image class="img" src="@/assets/icons/nav.png" mode="aspectFit" />
@@ -67,162 +67,162 @@
 </template>
 
 <style scoped lang="scss">
-  .content {
-    width: $o-width;
-    margin-top: 32rpx;
-    padding-bottom: calc(128rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(128rpx + env(safe-area-inset-bottom));
-    .divider-v {
-      width: 1rpx;
-      height: 20rpx;
-      background-color: $o-b20;
-      margin: 0 12rpx;
-    }
-    .title {
-      font-size: 32rpx;
-      font-weight: 500;
-      color: $o-b80;
-      margin-bottom: 32rpx;
-    }
-    .tags {
+.content {
+  width: $o-width;
+  margin-top: 32rpx;
+  padding-bottom: calc(128rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(128rpx + env(safe-area-inset-bottom));
+  .divider-v {
+    width: 1rpx;
+    height: 20rpx;
+    background-color: $o-b20;
+    margin: 0 12rpx;
+  }
+  .title {
+    font-size: 32rpx;
+    font-weight: 500;
+    color: $o-b80;
+    margin-bottom: 32rpx;
+  }
+  .tags {
+    display: flex;
+    align-items: center;
+    font-size: 24rpx;
+    color: $o-b60;
+    position: relative;
+    .tag {
+      height: 48rpx;
+      background-color: $o-w;
       display: flex;
       align-items: center;
+      padding: 0 24rpx;
+      border-radius: 999rpx;
+      margin-right: 16rpx;
+    }
+    .active {
+      background-color: rgb(232, 244, 240);
+      border: 1rpx solid $o-t;
+      color: $o-t;
+    }
+    .more {
+      font-size: 24rpx;
+      color: $o-b40;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      .icon_more {
+        width: 16rpx;
+        height: 32rpx;
+        margin-left: 4rpx;
+      }
+    }
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .card {
+      @include o-card;
       font-size: 24rpx;
       color: $o-b60;
-      position: relative;
-      .tag {
-        height: 48rpx;
-        background-color: $o-w;
-        display: flex;
-        align-items: center;
-        padding: 0 24rpx;
-        border-radius: 999rpx;
-        margin-right: 16rpx;
-      }
-      .active {
-        background-color: rgb(232, 244, 240);
-        border: 1rpx solid $o-t;
-        color: $o-t;
-      }
-      .more {
-        font-size: 24rpx;
-        color: $o-b40;
-        display: flex;
-        align-items: center;
-        position: absolute;
-        right: 0;
-        .icon_more {
-          width: 16rpx;
-          height: 32rpx;
-          margin-left: 4rpx;
-        }
-      }
-    }
-    .cards {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .card {
-        @include o-card;
-        font-size: 24rpx;
-        color: $o-b60;
-        margin-top: 24rpx;
-        .up {
-          padding: 32rpx;
-          .name {
-            font-size: 32rpx;
-            font-weight: 500;
-            color: $o-b80;
-          }
-          .desc {
-            display: flex;
-            align-items: center;
-            margin-top: 6rpx;
-            .status {
-              color: $o-t;
-            }
-          }
-        }
-
-        .down {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 24rpx 32rpx;
-          position: relative;
-          .divider-h {
-            width: 622rpx;
-            height: 1rpx;
-            background-color: $o-b10;
-            position: absolute;
-            top: 0;
-          }
-          .nav {
-            display: flex;
-            align-items: center;
-            .img {
-              width: 48rpx;
-              height: 48rpx;
-              margin-left: 16rpx;
-            }
-          }
-        }
-      }
-      .slogan {
-        display: flex;
-        align-items: center;
-        font-size: 24rpx;
-        color: $o-b40;
-        padding: 32rpx 0;
-      }
-    }
-    .no-position {
-      display: flex;
-      align-items: center;
-      width: $o-width;
-      height: 144rpx;
-      margin-bottom: 32rpx;
-      border-radius: 16rpx;
-      position: relative;
-      .bg {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-      }
-      .position {
-        width: 48rpx;
-        height: 48rpx;
-        margin-left: 32rpx;
-      }
-      .wrapper {
-        display: flex;
-        flex-direction: column;
-        margin-left: 28rpx;
-        z-index: 1;
-        .tips {
-          font-size: 28rpx;
+      margin-top: 24rpx;
+      .up {
+        padding: 32rpx;
+        .name {
+          font-size: 32rpx;
           font-weight: 500;
           color: $o-b80;
         }
         .desc {
-          font-size: 24rpx;
-          color: $o-b60;
-          margin-top: 2rpx;
+          display: flex;
+          align-items: center;
+          margin-top: 6rpx;
+          .status {
+            color: $o-t;
+          }
         }
       }
-      .btn {
-        position: absolute;
-        right: 32rpx;
-        height: 64rpx;
-        background-color: $o-t;
-        font-size: 26rpx;
-        font-weight: 500;
-        color: $o-w;
+
+      .down {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        padding: 0 32rpx;
-        border-radius: 999rpx;
+        padding: 24rpx 32rpx;
+        position: relative;
+        .divider-h {
+          width: 622rpx;
+          height: 1rpx;
+          background-color: $o-b10;
+          position: absolute;
+          top: 0;
+        }
+        .nav {
+          display: flex;
+          align-items: center;
+          .img {
+            width: 48rpx;
+            height: 48rpx;
+            margin-left: 16rpx;
+          }
+        }
       }
     }
+    .slogan {
+      display: flex;
+      align-items: center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 32rpx 0;
+    }
   }
+  .no-position {
+    display: flex;
+    align-items: center;
+    width: $o-width;
+    height: 144rpx;
+    margin-bottom: 32rpx;
+    border-radius: 16rpx;
+    position: relative;
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+    .position {
+      width: 48rpx;
+      height: 48rpx;
+      margin-left: 32rpx;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      margin-left: 28rpx;
+      z-index: 1;
+      .tips {
+        font-size: 28rpx;
+        font-weight: 500;
+        color: $o-b80;
+      }
+      .desc {
+        font-size: 24rpx;
+        color: $o-b60;
+        margin-top: 2rpx;
+      }
+    }
+    .btn {
+      position: absolute;
+      right: 32rpx;
+      height: 64rpx;
+      background-color: $o-t;
+      font-size: 26rpx;
+      font-weight: 500;
+      color: $o-w;
+      display: flex;
+      align-items: center;
+      padding: 0 32rpx;
+      border-radius: 999rpx;
+    }
+  }
+}
 </style>

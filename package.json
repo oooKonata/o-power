@@ -72,6 +72,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-4020420240722002",
     "@dcloudio/vite-plugin-uni": "3.0.0-4020420240722002",
     "@types/node": "^22.2.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "@vue/runtime-core": "^3.4.35",
     "@vue/tsconfig": "^0.1.3",
     "eslint": "^9.11.1",
