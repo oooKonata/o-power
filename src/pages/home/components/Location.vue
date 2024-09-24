@@ -23,6 +23,7 @@
   .content {
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
+    position: absolute;
     .position {
       z-index: 9;
       position: relative;
