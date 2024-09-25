@@ -10,7 +10,7 @@
 
   const tabbarList = ref([
     {
-      pagePath: '/pages/home/index',
+      pagePath: '/pagesTab/home/index',
       text: '首页',
       iconPath: loadStaticResource('/tabs/home_default.png'),
       selectedIconPath: loadStaticResource('/tabs/home_selected.png'),
@@ -20,7 +20,7 @@
       iconPath: loadStaticResource('/tabs/airplane.png'),
     },
     {
-      pagePath: '/pages/user/index',
+      pagePath: '/pagesTab/user/index',
       text: '我的',
       iconPath: loadStaticResource('/tabs/me_default.png'),
       selectedIconPath: loadStaticResource('/tabs/me_selected.png'),
@@ -28,7 +28,11 @@
   ])
 
   const changeSelect = (item: any) => {
-    uni.switchTab({ url: item.pagePath })
+    if (item.text) {
+      uni.switchTab({ url: item.pagePath })
+    } else {
+      uni.navigateTo({ url: item.pagePath })
+    }
   }
 </script>
 
@@ -45,13 +49,11 @@
 <style scoped lang="scss">
   .o-tab {
     width: 750rpx;
-    // height: 98rpx;
     height: calc(98rpx + constant(safe-area-inset-bottom));
     height: calc(98rpx + env(safe-area-inset-bottom));
     background-color: $o-w;
     display: flex;
     justify-content: center;
-    // align-items: center;
     position: fixed;
     bottom: 0;
     left: 0;

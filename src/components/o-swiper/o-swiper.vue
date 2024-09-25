@@ -29,8 +29,8 @@
         <image class="img" :src="url" />
       </swiper-item>
     </swiper>
-    <view class="o-swiper__dots">
-      <view v-for="(item, index) in urls" :key="index" class="o-swiper__dot" :class="{ active: flag === index }" />
+    <view :class="{ 'o-swiper__dots--big': size === 'big', 'o-swiper__dots--normal': size === 'normal' }">
+      <view v-for="(item, index) in urls" :key="index" class="dot" :class="{ active: flag === index }" />
     </view>
   </view>
 </template>
@@ -51,7 +51,6 @@
         width: 750rpx;
         height: 216rpx;
         display: flex;
-        justify-content: center;
 
         .img {
           width: $o-width;
@@ -62,15 +61,22 @@
     }
 
     &__dots {
-      position: absolute;
-      right: 32rpx;
-      bottom: 110rpx;
-      display: flex;
-      .active {
-        background-color: $o-w;
+      &--big {
+        display: flex;
+        position: absolute;
+        right: 32rpx;
+        bottom: 110rpx;
+      }
+      &--normal {
+        display: flex;
+        position: absolute;
+        bottom: 12rpx;
+        margin-left: 50%;
+        transform: translateX(-50%);
       }
     }
-    &__dot {
+
+    .dot {
       width: 12rpx;
       height: 12rpx;
       background-color: $o-w50;
@@ -79,6 +85,9 @@
       &:nth-last-child(1) {
         margin: 0;
       }
+    }
+    .active {
+      background-color: $o-w;
     }
   }
 </style>

@@ -1,36 +1,49 @@
 {
   "pages": [
     {
-      "path": "pages/home/index",
+      "path": "pagesTab/home/index",
       "style": {
         "navigationStyle": "custom"
       }
     },
     {
-      "path": "pages/airplane/index",
-      "style": {
-        "navigationBarTitleText": "飞机位"
-      }
-    },
-    {
-      "path": "pages/user/index",
-      "style": {
-        "navigationBarTitleText": "我的"
-      }
-    },
-    {
-      "path": "pages/login/index",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/location/index",
+      "path": "pagesTab/user/index",
       "style": {
         "navigationStyle": "custom"
       }
     }
   ],
+  "subPackages": [
+    {
+      "root": "pages",
+      "pages": [
+        {
+          "path": "airplane/index",
+          "style": {
+            "navigationBarTitleText": "飞机位"
+          }
+        },
+        {
+          "path": "login/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "location/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pagesTab/home/index": {
+      "network": "all",
+      "packages": ["pages"]
+    }
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -39,8 +52,8 @@
   },
   "tabBar": {
     "list": [
-      { "pagePath": "pages/home/index", "text": "首页" },
-      { "pagePath": "pages/user/index", "text": "我的" }
+      { "pagePath": "pagesTab/home/index", "text": "首页" },
+      { "pagePath": "pagesTab/user/index", "text": "我的" }
     ],
     "color": "#FFF",
     "selectedColor": "#FFF"

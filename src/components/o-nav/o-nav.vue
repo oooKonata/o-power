@@ -23,9 +23,9 @@
 </script>
 
 <template>
-  <view class="custom-nav">
+  <view class="o-nav">
     <view class="nav" :class="{ 'background-color': hasBgColor }">
-      <view class="hot-zone" v-if="type" @click="handleClick()">
+      <view v-if="type" class="hot-zone" @click="handleClick()">
         <image v-if="type === 'back_b'" class="icon" :src="loadStaticResource('/icons/back_b.png')" />
         <image v-else-if="type === 'back_w'" class="icon" :src="loadStaticResource('/icons/back_w.png')" />
         <image v-else-if="type === 'close'" class="icon" :src="loadStaticResource('/icons/close_b.png')" />
@@ -36,7 +36,7 @@
 </template>
 
 <style scoped lang="scss">
-  .custom-nav {
+  .o-nav {
     z-index: 99;
     position: fixed;
     padding-top: constant(safe-area-inset-top);

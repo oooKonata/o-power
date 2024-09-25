@@ -40,7 +40,7 @@
     <BannerSwiper size="big" :type="BANNER_TYPE.HOME_TOP" />
     <UserInfo />
     <QuickLink />
-    <BannerSwiper size="normal" :type="BANNER_TYPE.OIL_HOME" />
+    <BannerSwiper size="normal" :type="BANNER_TYPE.OIL_HOME" class="home-banner" />
     <NearbyService />
     <OTab :current="0" />
   </view>
@@ -48,8 +48,9 @@
 
 <style scoped lang="scss">
   .page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-column-center;
+    .home-banner {
+      margin-top: 24rpx;
+    }
   }
 </style>

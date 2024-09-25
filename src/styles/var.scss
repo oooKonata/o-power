@@ -41,3 +41,15 @@ $o-radius: 16rpx;
   overflow: hidden;
   width: $o-width;
 }
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
