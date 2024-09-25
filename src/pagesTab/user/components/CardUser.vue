@@ -21,7 +21,8 @@
     align-items: center;
     padding-top: calc(constant(safe-area-inset-top) + 44px + 12rpx);
     padding-top: calc(env(safe-area-inset-top) + 44px + 12rpx);
-    // z-index: 2;
+    z-index: 2;
+    position: relative;
     &__avatar {
       @include flex-center;
       margin-right: 24rpx;
