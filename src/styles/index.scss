@@ -37,3 +37,13 @@ image {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-3-55-Regular';
+  src: url('@/static/font/AlibabaPuHuiTi-3-55-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-3-85-Bold';
+  src: url('@/static/font/AlibabaPuHuiTi-3-85-Bold.ttf');
+}

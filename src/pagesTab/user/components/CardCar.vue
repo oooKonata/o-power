@@ -3,9 +3,9 @@
 </script>
 
 <template>
-  <view class="card-manage">
-    <text class="card-manage__title">我的车辆</text>
-    <view class="card-manage__info">
+  <view class="card-car">
+    <text class="card-car__title">我的车辆</text>
+    <view class="card-car__info">
       <text class="license-plate">添加爱车享权益</text>
       <view class="desc">
         <text class="label">星和车主</text>
@@ -15,7 +15,7 @@
         <text class="label">车主账单</text>
       </view>
     </view>
-    <view class="card-manage__add">
+    <view class="card-car__add">
       <image class="icon" :src="loadStaticResource('/icons/add.png')" />
       <text>添加爱车</text>
     </view>
@@ -23,11 +23,12 @@
 </template>
 
 <style scoped lang="scss">
-  .card-manage {
+  .card-car {
     z-index: 2;
     position: relative;
     padding: 32rpx;
     @include o-card;
+    margin-top: 24rpx;
     &__title {
       font-size: 28rpx;
       color: $o-b80;

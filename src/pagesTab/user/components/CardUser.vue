@@ -45,7 +45,7 @@
       .desc {
         font-size: 26rpx;
         color: $o-t;
-        margin-top: 6rpx;
+        margin-top: 4rpx;
       }
     }
   }

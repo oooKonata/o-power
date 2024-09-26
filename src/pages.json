@@ -20,7 +20,7 @@
         {
           "path": "airplane/index",
           "style": {
-            "navigationBarTitleText": "飞机位"
+            "navigationStyle": "custom"
           }
         },
         {
@@ -31,6 +31,36 @@
         },
         {
           "path": "location/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "order/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "invoice/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "exchange/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "service/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "set/index",
           "style": {
             "navigationStyle": "custom"
           }
