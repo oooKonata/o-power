@@ -6,15 +6,12 @@
     defineProps<{
       size: 'normal' | 'big'
       autoplay?: boolean
-
       urls: string[]
     }>(),
     {
       autoplay: false,
     }
   )
-
-  console.log(props.size === 'big')
 
   const flag = ref<number>(0)
   const handleChange = (e: any) => {

@@ -1,15 +1,25 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { useUserStore } from '@/store/user'
+  import { storeToRefs } from 'pinia'
+
+  const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
+
+  const handleClick = () => {
+    if (!storeIsLogin.value) {
+      uni.navigateTo({ url: '/pages/login/index' })
+    }
+  }
 </script>
 
 <template>
-  <view class="card-user">
+  <view class="card-user" @click="handleClick">
     <view class="card-user__avatar">
-      <image class="image" :src="loadStaticResource('/icons/profile_logout.png')" />
+      <image class="image" :src="storeIsLogin ? storeUserInfo?.avatar : loadStaticResource('/icons/profile_logout.png')" />
     </view>
     <view class="card-user__info">
-      <view class="nickname">点击登录</view>
-      <view class="desc">解锁惊喜会员体验</view>
+      <view class="nickname">{{ storeIsLogin ? storeUserInfo?.nickname : '点击登录' }}</view>
+      <view class="desc" :class="{ 'desc-login': storeIsLogin }">{{ storeIsLogin ? '开通会员解锁好礼' : '解锁惊喜会员体验' }}</view>
     </view>
   </view>
 </template>
@@ -46,6 +56,9 @@
         font-size: 26rpx;
         color: $o-t;
         margin-top: 4rpx;
+      }
+      .desc-login {
+        color: $o-rights;
       }
     }
   }

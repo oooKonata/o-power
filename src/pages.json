@@ -64,6 +64,12 @@
           "style": {
             "navigationStyle": "custom"
           }
+        },
+        {
+          "path": "nfc/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
         }
       ]
     }

@@ -17,6 +17,7 @@ $o-b30: rgba($o-b, 0.3);
 $o-b20: rgba($o-b, 0.2);
 $o-b12: rgba($o-b, 0.12);
 $o-b10: rgba($o-b, 0.1);
+$o-b8: rgba($o-b, 0.08);
 
 // 白色
 $o-w: #ffffff;
@@ -51,5 +52,11 @@ $o-radius: 16rpx;
 @mixin flex-center {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between-center {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }

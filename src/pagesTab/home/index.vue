@@ -14,6 +14,7 @@
   import { useCacheStore } from '@/store/cache'
   import BannerSwiper from './components/BannerSwiper.vue'
   import { BANNER_TYPE } from '@/enums'
+  import CardGrid from './components/CardGrid.vue'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())
@@ -40,6 +41,7 @@
     <BannerSwiper size="big" :type="BANNER_TYPE.HOME_TOP" />
     <UserInfo />
     <QuickLink />
+    <CardGrid />
     <BannerSwiper size="normal" :type="BANNER_TYPE.OIL_HOME" class="home-banner" />
     <NearbyService />
     <OTab :current="0" />

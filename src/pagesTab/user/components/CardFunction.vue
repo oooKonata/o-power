@@ -1,37 +1,36 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { computed } from 'vue'
 
-  const cellList = {
-    group1: [
-      {
-        icon: loadStaticResource('/user/order.png'),
-        title: '我的订单',
-        url: '/pages/order/index',
-      },
-      {
-        icon: loadStaticResource('/user/invoice.png'),
-        title: '发票管理',
-        url: '/pages/invoice/index',
-      },
-      {
-        icon: loadStaticResource('/user/exchange.png'),
-        title: '兑换中心',
-        url: '/pages/exchange/index',
-      },
-    ],
-    group2: [
-      {
-        icon: loadStaticResource('/user/service.png'),
-        title: '专属客服',
-        url: '/pages/service/index',
-      },
-      {
-        icon: loadStaticResource('/user/set.png'),
-        title: '设置',
-        url: '/pages/set/index',
-      },
-    ],
-  }
+  const cellList = [
+    {
+      icon: loadStaticResource('/user/order.png'),
+      title: '我的订单',
+      url: '/pages/order/index',
+    },
+    {
+      icon: loadStaticResource('/user/invoice.png'),
+      title: '发票管理',
+      url: '/pages/invoice/index',
+    },
+    {
+      icon: loadStaticResource('/user/exchange.png'),
+      title: '兑换中心',
+      url: '/pages/exchange/index',
+    },
+    {
+      icon: loadStaticResource('/user/service.png'),
+      title: '专属客服',
+      url: '/pages/service/index',
+    },
+    {
+      icon: loadStaticResource('/user/set.png'),
+      title: '设置',
+      url: '/pages/set/index',
+    },
+  ]
+
+  const listGroup = computed(() => [cellList.slice(0, 3), cellList.slice(3)])
 
   const handelClick = (url: string) => {
     uni.navigateTo({ url: url })
@@ -43,7 +42,7 @@
     <view class="card-function__title">
       <text>常用功能</text>
     </view>
-    <view v-for="(group, index) in cellList" :key="index" class="card-function__group">
+    <view v-for="(group, index) in listGroup" :key="index" class="card-function__group">
       <view v-for="(item, index) in group" :key="index" class="cell" @click="handelClick(item.url)">
         <view class="left">
           <image class="icon" :src="item.icon" />

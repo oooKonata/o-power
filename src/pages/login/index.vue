@@ -43,7 +43,7 @@
     } else {
       const data = await h5Login({ phone: phone.value, captcha: captcha.value })
       storeToken.value = data.token
-      uni.navigateTo({ url: '/pages/home/index' })
+      uni.switchTab({ url: '/pagesTab/home/index' })
     }
   }
 </script>
@@ -67,7 +67,10 @@
     <view class="btn quick-login">手机号一键登录</view>
     <text class="register">注册账号</text>
     <view class="bottom">
-      <image class="radio" :src="isChecked ? loadStaticResource('/icons/selected.png') : loadStaticResource('/icons/unselect.png')" @click="isChecked = !isChecked" />
+      <image
+        class="radio"
+        :src="isChecked ? loadStaticResource('/icons/selected.png') : loadStaticResource('/icons/unselect.png')"
+        @click="isChecked = !isChecked" />
       <text>我已阅读并同意</text>
       <text class="protocol">《星和动力隐私政策》</text>
     </view>
