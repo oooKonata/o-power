@@ -70,8 +70,6 @@
   .content {
     width: $o-width;
     margin-top: 32rpx;
-    padding-bottom: calc(128rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(128rpx + env(safe-area-inset-bottom));
     .divider-v {
       width: 1rpx;
       height: 20rpx;

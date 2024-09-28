@@ -1,5 +1,9 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+
+  const handleClick = () => {
+    uni.navigateTo({ url: '/pages/nfc/NFCRecognition' })
+  }
 </script>
 
 <template>
@@ -8,7 +12,7 @@
       <text class="title">NFC贴卡充值</text>
       <text class="desc">便捷快速 随时随地 安全可靠</text>
     </view>
-    <view class="card-nfc__btn">
+    <view class="card-nfc__btn" @click="handleClick">
       <text>贴卡充值</text>
       <image class="icon" :src="loadStaticResource('/nfc/arrow.png')" />
     </view>

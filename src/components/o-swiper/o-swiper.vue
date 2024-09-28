@@ -1,15 +1,18 @@
 <script setup lang="ts">
-  import { loadStaticResource } from '@/assets'
-  import { computed, ref } from 'vue'
+  import { ref } from 'vue'
 
   const props = withDefaults(
     defineProps<{
       size: 'normal' | 'big'
-      autoplay?: boolean
       urls: string[]
+      autoplay?: boolean
+      interval?: number
+      circular?: boolean
     }>(),
     {
-      autoplay: false,
+      autoplay: true,
+      interval: 3000,
+      circular: true,
     }
   )
 
@@ -21,7 +24,12 @@
 
 <template>
   <view class="o-swiper">
-    <swiper :class="{ 'o-swiper__image--big': size === 'big', 'o-swiper__image--normal': size === 'normal' }" @change="handleChange">
+    <swiper
+      :class="{ 'o-swiper__image--big': size === 'big', 'o-swiper__image--normal': size === 'normal' }"
+      :autoplay="autoplay"
+      :interval="interval"
+      :circular="circular"
+      @change="handleChange">
       <swiper-item v-for="(url, index) in urls" :key="index">
         <image class="img" :src="url" />
       </swiper-item>

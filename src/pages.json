@@ -70,6 +70,12 @@
           "style": {
             "navigationStyle": "custom"
           }
+        },
+        {
+          "path": "nfc/NFCRecognition",
+          "style": {
+            "navigationStyle": "custom"
+          }
         }
       ]
     }

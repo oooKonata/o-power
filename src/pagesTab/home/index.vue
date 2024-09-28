@@ -12,7 +12,7 @@
   import Location from './components/Location.vue'
   import { getbannerList } from '@/api/common'
   import { useCacheStore } from '@/store/cache'
-  import BannerSwiper from './components/BannerSwiper.vue'
+  import BannerSwiper from '@/components/BannerSwiper.vue'
   import { BANNER_TYPE } from '@/enums'
   import CardGrid from './components/CardGrid.vue'
 
@@ -51,6 +51,8 @@
 <style scoped lang="scss">
   .page {
     @include flex-column-center;
+    padding-bottom: calc(128rpx + constant(safe-area-inset-bottom));
+    padding-bottom: calc(128rpx + env(safe-area-inset-bottom));
     .home-banner {
       margin-top: 24rpx;
     }

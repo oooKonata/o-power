@@ -8,7 +8,6 @@
   const props = defineProps<{
     size: 'normal' | 'big'
     type: BANNER_TYPE
-    autoplay?: boolean
   }>()
 
   const { storeBannerList } = storeToRefs(useCacheStore())
@@ -18,7 +17,7 @@
 </script>
 
 <template>
-  <OSwiper :size="size" :urls="urls" :autoplay="autoplay" />
+  <OSwiper :size="size" :urls="urls" />
 </template>
 
 <style scoped lang="scss"></style>

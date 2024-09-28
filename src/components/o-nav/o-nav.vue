@@ -1,8 +1,5 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
-  import { useLocationStore } from '@/store/location'
-  import { onLoad } from '@dcloudio/uni-app'
-  import { storeToRefs } from 'pinia'
 
   withDefaults(
     defineProps<{
