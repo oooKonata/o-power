@@ -18,7 +18,7 @@
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())
-  const { getLocation } = useLocationStore()
+  // const { getLocation } = useLocationStore()
 
   onLoad(async () => {
     // 获取用户信息

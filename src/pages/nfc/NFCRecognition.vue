@@ -2,6 +2,8 @@
   import { loadStaticResource } from '@/assets'
   import OBg from '@/components/o-bg/o-bg.vue'
   import ONav from '@/components/o-nav/o-nav.vue'
+  import NFCLottieH5 from './components/NFCLottieH5.vue'
+  import NFCLottieWX from './components/NFCLottieWX.vue'
 </script>
 
 <template>
@@ -14,7 +16,14 @@
         <image class="icon" :src="loadStaticResource('/nfc/t-union.png')" />
         <text>的交通卡*</text>
       </view>
-      <view class="nfc"></view>
+      <view class="nfc">
+        <!-- #ifdef H5 -->
+        <NFCLottieH5 />
+        <!-- #endif -->
+        <!-- #ifdef MP-WEIXIN -->
+        <NFCLottieWX />
+        <!-- #endif -->
+      </view>
       <view class="info">
         <text class="title">正在读卡...</text>
         <text class="desc">请保持交通卡贴近手机背面上方NFC感应区</text>
@@ -49,6 +58,7 @@
         height: 592rpx;
         background-color: $o-w;
         border-radius: 32rpx;
+        @include flex-center;
       }
       .info {
         @include flex-column-center;

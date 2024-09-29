@@ -46,19 +46,19 @@
       <view class="position">
         <text class="title">热门城市</text>
         <view class="hot">
-          <view class="option" v-for="(item, index) in hotCityList" :key="index" @click="chooseCity(item)">
+          <view v-for="(item, index) in hotCityList" :key="index" class="option" @click="chooseCity(item)">
             <text>{{ item.item }}</text>
           </view>
         </view>
       </view>
       <view class="list">
-        <view class="item" v-for="(item, index) in cityList" :key="index">
+        <view v-for="(item, index) in cityList" :key="index" class="item">
           <text class="letter border">{{ item.title }}</text>
-          <text class="city border" v-for="(e, index) in item.list" :key="index" @click="chooseCity(e)">{{ e.item }} </text>
+          <text v-for="(e, index) in item.list" :key="index" class="city border" @click="chooseCity(e)">{{ e.item }} </text>
         </view>
       </view>
       <view class="indicator">
-        <view class="item" v-for="(item, index) in cityList" :key="index">
+        <view v-for="(item, index) in cityList" :key="index" class="item">
           <text :class="{ active: index === 0 }">{{ item.title }}</text>
           <view v-if="index === 0" class="bubble">
             <text class="tag">A</text>

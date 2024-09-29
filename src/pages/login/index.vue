@@ -84,8 +84,6 @@
     align-items: center;
     position: relative;
     .top {
-      margin-top: calc(-88rpx - constant(safe-area-inset-top));
-      margin-top: calc(-88rpx - env(safe-area-inset-top));
       .banner {
         width: 750rpx;
         height: 604rpx;
