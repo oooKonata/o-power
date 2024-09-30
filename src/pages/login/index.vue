@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { getCaptcha, h5Login } from '@/api/user'
+  import { getCaptcha, getUserInfo, h5Login } from '@/api/user'
   import { loadStaticResource } from '@/assets'
   import ONav from '@/components/o-nav/o-nav.vue'
   import { useUserStore } from '@/store/user'
   import { storeToRefs } from 'pinia'
-  import { computed, ref } from 'vue'
+  import { ref } from 'vue'
 
-  const { storeToken } = storeToRefs(useUserStore())
+  const { storeToken, storeUserInfo } = storeToRefs(useUserStore())
 
   const phone = ref<string>('')
   const captcha = ref<string>('')
@@ -43,6 +43,7 @@
     } else {
       const data = await h5Login({ phone: phone.value, captcha: captcha.value })
       storeToken.value = data.token
+      storeUserInfo.value = await getUserInfo()
       uni.switchTab({ url: '/pagesTab/home/index' })
     }
   }

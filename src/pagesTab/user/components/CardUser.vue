@@ -1,9 +1,12 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { useCacheStore } from '@/store/cache'
   import { useUserStore } from '@/store/user'
   import { storeToRefs } from 'pinia'
+  import { toRefs } from 'vue'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
+  const { safeAreaInsets } = useCacheStore()
 
   const handleClick = () => {
     if (!storeIsLogin.value) {
@@ -13,9 +16,9 @@
 </script>
 
 <template>
-  <view class="card-user" @click="handleClick">
+  <view class="card-user" :style="{ marginTop: `calc(${safeAreaInsets!.top + 44 }px + 12rpx)` }" @click="handleClick">
     <view class="card-user__avatar">
-      <image class="image" :src="storeIsLogin ? storeUserInfo?.avatar : loadStaticResource('/icons/profile_logout.png')" />
+      <image class="avatar" :src="storeIsLogin ? storeUserInfo?.avatar : loadStaticResource('/icons/profile_logout.png')" />
     </view>
     <view class="card-user__info">
       <view class="nickname">{{ storeIsLogin ? storeUserInfo?.nickname : '点击登录' }}</view>
@@ -29,8 +32,6 @@
     width: $o-width;
     display: flex;
     align-items: center;
-    padding-top: calc(constant(safe-area-inset-top) + 44px + 12rpx);
-    padding-top: calc(env(safe-area-inset-top) + 44px + 12rpx);
     z-index: 2;
     position: relative;
     &__avatar {
@@ -41,7 +42,7 @@
       background-color: $o-w;
       border-radius: 50%;
       border: solid 2rpx $o-b20;
-      .image {
+      .avatar {
         width: 96rpx;
         height: 96rpx;
       }

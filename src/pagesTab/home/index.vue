@@ -18,10 +18,10 @@
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())
-  // const { getLocation } = useLocationStore()
+  const { getLocation } = useLocationStore()
 
   onLoad(async () => {
-    // 获取用户信息
+    // 已登录，获取用户信息
     if (storeIsLogin.value) {
       const data = await getUserInfo()
       storeUserInfo.value = data
@@ -31,7 +31,7 @@
       storeBannerList.value = res
     })
 
-    // getLocation()
+    getLocation()
   })
 </script>
 

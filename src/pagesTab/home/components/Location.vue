@@ -5,7 +5,7 @@
   import { storeToRefs } from 'pinia'
 
   const { storeLocation } = storeToRefs(useLocationStore())
-  const { safeAreaInsets } = storeToRefs(useCacheStore())
+  const { safeAreaInsets } = useCacheStore()
 
   const handleClick = () => {
     uni.navigateTo({ url: '/pages/location/index' })

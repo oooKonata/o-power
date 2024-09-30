@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
   import { loadStaticResource } from '@/assets'
   import { storeToRefs } from 'pinia'
   import { useUserStore } from '@/store/user'
-  import { onLoad } from '@dcloudio/uni-app'
-  import { getUserInfo } from '@/api/user'
 
   const { storeIsLogin, storeUserInfo } = storeToRefs(useUserStore())
 
