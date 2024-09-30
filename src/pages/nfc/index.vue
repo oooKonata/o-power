@@ -7,13 +7,6 @@
   import CardCoupon from './components/CardCoupon.vue'
   import CardRecomend from './components/CardRecomend.vue'
   import BannerSwiper from '@/components/BannerSwiper.vue'
-  import { onMounted, ref } from 'vue'
-
-  const canvas = ref()
-
-  onMounted(() => {
-    console.log('000', canvas.value)
-  })
 </script>
 
 <template>
@@ -25,14 +18,11 @@
     <CardGrid />
     <CardCoupon />
     <CardRecomend />
-    <view ref="canvas" class="canvas"></view>
   </view>
 </template>
 
 <style scoped lang="scss">
   .nfc {
     @include flex-column-center;
-    padding-bottom: calc(32rpx + constant(safe-area-inset-bottom));
-    padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
   }
 </style>

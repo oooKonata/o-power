@@ -8,11 +8,13 @@ export const useCacheStore = defineStore(
   () => {
     const storeBannerList = ref<{ [key in BANNER_TYPE]: Banner[] }>()
 
-    const { safeAreaInsets } = uni.getSystemInfoSync()
+    const { statusBarHeight, safeAreaInsets, osName } = uni.getSystemInfoSync()
 
     return {
       storeBannerList,
       safeAreaInsets,
+      osName,
+      statusBarHeight,
     }
   },
   {

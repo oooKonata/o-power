@@ -38,8 +38,9 @@
 <template>
   <view class="page">
     <Location />
-    <BannerSwiper size="big" :type="BANNER_TYPE.HOME_TOP" />
-    <UserInfo />
+    <!-- <BannerSwiper size="big" :type="BANNER_TYPE.HOME_TOP" /> -->
+    <view>11111</view>
+    <!-- <UserInfo /> -->
     <QuickLink />
     <CardGrid />
     <BannerSwiper size="normal" :type="BANNER_TYPE.OIL_HOME" class="home-banner" />
