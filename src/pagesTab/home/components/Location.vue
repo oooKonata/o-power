@@ -5,7 +5,7 @@
   import { storeToRefs } from 'pinia'
 
   const { storeLocation } = storeToRefs(useLocationStore())
-  const { safeAreaInsets, statusBarHeight } = useCacheStore()
+  const { safeAreaInsets } = useCacheStore()
 
   const handleClick = () => {
     uni.navigateTo({ url: '/pages/location/index' })
@@ -15,7 +15,6 @@
 <template>
   <view class="location" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="position" @click="handleClick">
-      <view>{{ statusBarHeight }}</view>
       <text>{{ storeLocation?.city || '未授权定位' }}</text>
       <image class="icon" :src="loadStaticResource('/icons/position_more.png')" />
     </view>
@@ -24,17 +23,18 @@
 
 <style scoped lang="scss">
   .location {
+    z-index: 9;
     position: absolute;
-    left: 32rpx;
+    top: 0;
+    left: 0;
+    width: 750rpx;
     .position {
-      z-index: 9;
-      position: relative;
-      color: $o-b80;
-      width: 750rpx;
-      height: 44px;
-      font-size: 30rpx;
       display: flex;
       align-items: center;
+      margin-left: 32rpx;
+      color: $o-b80;
+      height: 44px;
+      font-size: 30rpx;
       .icon {
         width: 16rpx;
         height: 16rpx;

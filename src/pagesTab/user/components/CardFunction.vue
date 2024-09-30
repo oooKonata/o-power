@@ -1,6 +1,9 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { useCacheStore } from '@/store/cache'
   import { computed } from 'vue'
+
+  const { safeAreaInsets } = useCacheStore()
 
   const cellList = [
     {
@@ -38,7 +41,7 @@
 </script>
 
 <template>
-  <view class="card-function">
+  <view class="card-function" :style="{paddingBottom:`calc(${safeAreaInsets!.bottom}px + 152rpx)`}">
     <view class="card-function__title">
       <text>常用功能</text>
     </view>

@@ -4,13 +4,16 @@
   import ONav from '@/components/o-nav/o-nav.vue'
   import NFCLottieH5 from './components/NFCLottieH5.vue'
   import NFCLottieWX from './components/NFCLottieWX.vue'
+  import { useCacheStore } from '@/store/cache'
+
+  const { safeAreaInsets } = useCacheStore()
 </script>
 
 <template>
   <view class="nfc-recognition">
     <ONav title="贴卡充值" type="back_b" />
     <OBg type="green" />
-    <view class="nfc-recognition__reading">
+    <view class="nfc-recognition__reading" :style="{ paddingTop: `calc(${safeAreaInsets!.top + 44}px + 32rpx)` }">
       <view class="tip">
         <text>*仅支持带有银联标志</text>
         <image class="icon" :src="loadStaticResource('/nfc/t-union.png')" />
@@ -39,8 +42,6 @@
     &__reading {
       z-index: 9;
       @include flex-column-center;
-      margin-top: calc(constant(safe-area-inset-top) + 44px + 32rpx);
-      margin-top: calc(env(safe-area-inset-top) + 44px + 32rpx);
       .tip {
         display: flex;
         align-items: center;

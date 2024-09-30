@@ -3,12 +3,14 @@
   import type { City, CityListWithPy } from '@/api/types/common'
   import { loadStaticResource } from '@/assets'
   import ONav from '@/components/o-nav/o-nav.vue'
+  import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
   import { onLoad } from '@dcloudio/uni-app'
   import { storeToRefs } from 'pinia'
   import { ref } from 'vue'
 
   const { storeLocation } = storeToRefs(useLocationStore())
+  const { safeAreaInsets } = useCacheStore()
 
   const cityList = ref<CityListWithPy[]>([])
   const hotCityList = ref<City[]>([])
@@ -31,7 +33,7 @@
 <template>
   <view class="page">
     <ONav title="选择位置" type="close" hasBgColor />
-    <view class="content">
+    <view class="content" :style="{paddingTop:`calc(${safeAreaInsets!.top + 44}px)`}">
       <view class="search">
         <image class="icon" :src="loadStaticResource('/icons/search.png')" />
         <input type="text" class="input" placeholder="搜索城市" placeholder-style="font-size:28rpx; color:#999999" />
@@ -73,16 +75,14 @@
 <style scoped lang="scss">
   .page {
     .content {
-      padding-top: constant(safe-area-inset-top);
-      padding-top: env(safe-area-inset-top);
-      margin-top: 88rpx;
       background-color: $o-w;
+      padding: 0 32rpx;
       display: flex;
       flex-direction: column;
       align-items: center;
       .search {
         background-color: $o-bg;
-        width: $o-width;
+        width: 100%;
         height: 64rpx;
         border-radius: 999rpx;
         margin-top: 20rpx;
@@ -100,7 +100,7 @@
         }
       }
       .position {
-        width: $o-width;
+        width: 100%;
         color: $o-b80;
         font-size: 28rpx;
         display: flex;
@@ -115,9 +115,7 @@
           border: 1rpx solid $o-b20;
           border-radius: 8rpx;
           color: $o-b80;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          @include flex-center;
           .icon {
             width: 40rpx;
             height: 40rpx;

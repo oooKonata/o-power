@@ -21,7 +21,5 @@
 <style scoped lang="scss">
   .page {
     @include flex-column-center;
-    padding-bottom: calc(constant(safe-area-inset-bottom) + 152rpx);
-    padding-bottom: calc(env(safe-area-inset-bottom) + 152rpx);
   }
 </style>

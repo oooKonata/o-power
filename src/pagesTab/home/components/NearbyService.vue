@@ -1,12 +1,15 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+  import { useCacheStore } from '@/store/cache'
   import { ref } from 'vue'
+
+  const { safeAreaInsets } = useCacheStore()
 
   const hasPosition = ref<boolean>(true)
 </script>
 
 <template>
-  <view class="content">
+  <view class="content" :style="{paddingBottom:`calc(${safeAreaInsets!.bottom}px) + 128rpx`}">
     <view class="title">附近服务</view>
     <view v-if="hasPosition">
       <view class="tags">

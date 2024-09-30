@@ -4,7 +4,6 @@
 
   const { safeAreaInsets, osName } = useCacheStore()
   let bottomInset = osName === 'ios' ? safeAreaInsets!.bottom : 12
-  console.log(bottomInset)
 
   const cardList = [
     {

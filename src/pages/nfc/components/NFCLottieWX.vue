@@ -1,31 +1,55 @@
 <script setup lang="ts">
   import lottie from 'lottie-miniprogram'
-  import { onMounted, ref } from 'vue'
+  import { onMounted, onUnmounted, ref } from 'vue'
 
-  const canvas = ref()
-  const canvas2 = ref()
   const lottieWX = ref()
 
-  lottie.loadAnimation
+  const initLottieWX = () => {
+    uni
+      .createSelectorQuery()
+      .select('#canvas')
+      .node(res => {
+        if (res) {
+          const canvas = res.node
+          const context = canvas.getContext('2d')
+          canvas.width = 496
+          canvas.height = 496
 
-  onMounted(() => {
-    // lottieWX.value = lottie.setup(canvas.value)
-    console.log('111', canvas.value)
-    console.log('222', canvas2.value)
+          lottie.setup(canvas)
 
-    // lottieWX.value?.loadAnimation({
-    //   renderer: 'canvas',
-    //   loop: true,
-    //   autoplay: true,
-    //   rendererSettings: ,
-    //   path: '',
-    // })
+          lottieWX.value = lottie.loadAnimation({
+            loop: true,
+            autoplay: true,
+            // animationData: '/o-power/static/lottie/nfc.json',
+            rendererSettings: {
+              context,
+            },
+          })
+        }
+      })
+      .exec()
+  }
+
+  onMounted(async () => {
+    await initLottieWX()
+  })
+
+  onUnmounted(() => {
+    if (lottieWX.value) {
+      lottieWX.value.destroy()
+    }
   })
 </script>
 
 <template>
-  <view ref="canvas2" class="nfc-lottie__wx"></view>
-  <canvas ref="canvas" class="nfc-lottie__wx" type="2d"></canvas>
+  <view class="nfc-lottie__wx">
+    <canvas id="canvas" type="2d" />
+  </view>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .nfc-lottie__wx {
+    width: 496rpx;
+    height: 496rpx;
+  }
+</style>

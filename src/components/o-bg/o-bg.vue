@@ -18,6 +18,7 @@
     width: 750rpx;
     height: 428rpx;
     position: absolute;
+    top: 0;
     left: 0;
     &__green,
     &__blue {
