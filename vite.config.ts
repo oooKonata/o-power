@@ -7,7 +7,10 @@ import Imagemin from 'vite-plugin-imagemin'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/o-power/',
-  plugins: [uni(), Imagemin({ webp: { quality: 90 } })],
+  plugins: [
+    uni(),
+    // Imagemin({ webp: { quality: 90 } })
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

@@ -1,43 +1,37 @@
 <script setup lang="ts">
   import lottie from 'lottie-miniprogram'
   import { onMounted, onUnmounted, ref } from 'vue'
+  import nfcData from '@/static/lottie/nfc.json'
 
-  const lottieWX = ref()
-
-  const initLottieWX = () => {
-    uni
+  onMounted(async () => {
+    await wx
       .createSelectorQuery()
       .select('#canvas')
       .node(res => {
         if (res) {
           const canvas = res.node
-          const context = canvas.getContext('2d')
-          canvas.width = 496
-          canvas.height = 496
 
-          lottie.setup(canvas)
+          console.log('canvas', canvas)
 
-          lottieWX.value = lottie.loadAnimation({
-            loop: true,
-            autoplay: true,
-            // animationData: '/o-power/static/lottie/nfc.json',
-            rendererSettings: {
-              context,
-            },
-          })
+          // const ctx = canvas.getContext('2d')
+          // const dpr = wx.getSystemInfoSync().pixelRatio
+
+          // canvas.width = 496 * dpr
+          // canvas.height = 496 * dpr
+
+          // lottie.setup(canvas)
+
+          // lottie.loadAnimation({
+          //   loop: true,
+          //   autoplay: true,
+          //   animationData: nfcData,
+          //   rendererSettings: {
+          //     context: ctx,
+          //   },
+          // })
         }
       })
       .exec()
-  }
-
-  onMounted(async () => {
-    await initLottieWX()
-  })
-
-  onUnmounted(() => {
-    if (lottieWX.value) {
-      lottieWX.value.destroy()
-    }
   })
 </script>
 
