@@ -1,48 +1,54 @@
 <script setup lang="ts">
   import lottie from 'lottie-miniprogram'
-  import { onMounted, onUnmounted, ref } from 'vue'
+  import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
   import nfcData from '@/static/lottie/nfc.json'
 
-  onMounted(async () => {
-    await wx
-      .createSelectorQuery()
-      .select('#canvas')
-      .node(res => {
-        if (res) {
-          const canvas = res.node
+  const lottieWX = ref()
 
-          console.log('canvas', canvas)
+  const init = () => {
+    getCurrentInstance()!
+      // @ts-expect-error
+      .ctx.createSelectorQuery()
+      .select('#lottie')
+      .node((res: any) => {
+        const canvas = res.node
+        const ctx = canvas.getContext('2d')
 
-          // const ctx = canvas.getContext('2d')
-          // const dpr = wx.getSystemInfoSync().pixelRatio
+        const dpr = uni.getSystemInfoSync().pixelRatio
+        canvas.width = 496 * dpr
+        canvas.height = 496 * dpr
+        ctx.scale(dpr, dpr)
 
-          // canvas.width = 496 * dpr
-          // canvas.height = 496 * dpr
-
-          // lottie.setup(canvas)
-
-          // lottie.loadAnimation({
-          //   loop: true,
-          //   autoplay: true,
-          //   animationData: nfcData,
-          //   rendererSettings: {
-          //     context: ctx,
-          //   },
-          // })
-        }
+        lottie.setup(canvas)
+        lottieWX.value = lottie.loadAnimation({
+          loop: true,
+          autoplay: true,
+          animationData: nfcData,
+          rendererSettings: {
+            context: ctx,
+          },
+        })
       })
       .exec()
+  }
+
+  onMounted(async () => {
+    await init()
+  })
+
+  onUnmounted(() => {
+    if (lottieWX.value) {
+      lottieWX.value.destroy()
+    }
   })
 </script>
 
 <template>
-  <view class="nfc-lottie__wx">
-    <canvas id="canvas" type="2d" />
-  </view>
+  <canvas id="lottie" class="lottie" type="2d" />
 </template>
 
 <style scoped lang="scss">
-  .nfc-lottie__wx {
+  .lottie {
     width: 496rpx;
     height: 496rpx;
   }
