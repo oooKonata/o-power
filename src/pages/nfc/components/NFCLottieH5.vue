@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Lottie from 'lottie-web'
+  import nfcData from '@/static/lottie/nfc.json'
   import { onMounted, onUnmounted, ref } from 'vue'
 
   const dom = ref()
@@ -11,7 +12,8 @@
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: '/o-power/static/lottie/nfc.json',
+      animationData: nfcData,
+      // path: '/o-power/static/lottie/nfc.json',
     })
   })
 

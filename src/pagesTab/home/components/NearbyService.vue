@@ -1,48 +1,86 @@
 <script setup lang="ts">
+  import { getOilStationListAll } from '@/api/oil'
+  import type { OilStation } from '@/api/types/oil'
   import { loadStaticResource } from '@/assets'
+  import { OIL_STATION_TYPE, OIL_TYPE, SORT_RULES } from '@/enums'
   import { useCacheStore } from '@/store/cache'
-  import { ref } from 'vue'
+  import { useLocationStore } from '@/store/location'
+  import { storeToRefs } from 'pinia'
+  import { ref, watch } from 'vue'
 
   const { safeAreaInsets } = useCacheStore()
+  const { getLocation } = useLocationStore()
 
-  const hasPosition = ref<boolean>(true)
+  const oilStationList = ref<OilStation[]>([])
+
+  const { hasLocation, storeLocation } = storeToRefs(useLocationStore())
+  const init = async () => {
+    if (hasLocation.value) {
+      const data = await getOilStationListAll({
+        provinceCode: storeLocation.value!.provinceCode,
+        longitude: storeLocation.value!.longitude,
+        latitude: storeLocation.value!.latitude,
+        type: OIL_STATION_TYPE.ALL,
+        oilNo: OIL_TYPE.T92,
+        sort: SORT_RULES.RECOMMEND,
+        pageSize: 3,
+      })
+      oilStationList.value = data.list
+    }
+  }
+
+  watch(storeLocation, init, { immediate: true })
+
+  const handleClick = () => {
+    getLocation()
+  }
 </script>
 
 <template>
   <view class="content" :style="{paddingBottom:`calc(${safeAreaInsets!.bottom}px) + 128rpx`}">
     <view class="title">附近服务</view>
-    <view v-if="hasPosition">
+    <view v-if="hasLocation">
       <view class="tags">
         <view class="tag active">
-          <text>中石油</text>
+          <text>加油</text>
         </view>
         <view class="tag">
-          <text>民营</text>
+          <text>充电</text>
         </view>
         <view class="tag">
           <text>洗车</text>
         </view>
         <view class="more">
           <text>查看全部</text>
-          <image class="icon_more" src="@/assets/icons/more_small.png" />
+          <image class="icon_more" :src="loadStaticResource('/icons/more_small.png')" />
         </view>
       </view>
       <view class="cards">
-        <view v-for="item in 3" :key="item" class="card">
-          <view class="up">
-            <view class="name ellipsis-311">中国石油徐东路加油站</view>
-            <view class="desc">
-              <text class="status">营业中</text>
-              <view class="divider-v"></view>
-              <text>营业时间0:00-24:00</text>
+        <view v-for="(item, index) in oilStationList" :key="index" class="card">
+          <view class="top">
+            <view class="left">
+              <text class="title ellipsis">{{ item.title }}</text>
+              <view class="desc">
+                <text class="distance">{{ item.distance }}公里</text>
+                <view class="sep"></view>
+                <text class="position ellipsis">{{ item.address }}</text>
+              </view>
+            </view>
+            <view class="right">
+              <image class="icon" :src="loadStaticResource('/icons/nav.png')" />
+              <text>导航</text>
             </view>
           </view>
           <view class="down">
-            <view class="divider-h"></view>
-            <text class="ellipsis-200">武汉市洪山区徐东大街59号(汪家墩地铁站E口步行140米)</text>
-            <view class="nav">
-              <text>1.4公里</text>
-              <image class="img" src="@/assets/icons/nav.png" />
+            <view class="info">
+              <text>¥</text>
+              <text class="price">{{ item.priceYfq }}</text>
+              <text>/L</text>
+              <text class="old-price">¥{{ item.priceOfficial }}/L</text>
+            </view>
+            <view class="btn">
+              <text>去加油</text>
+              <image class="icon" :src="loadStaticResource('/icons/go.png')" />
             </view>
           </view>
         </view>
@@ -55,14 +93,14 @@
         </view>
       </view>
     </view>
-    <view v-if="!hasPosition" class="no-position">
+    <view v-else class="no-position">
       <image class="bg" :src="loadStaticResource('/home/img_position_bg.png')" />
       <image class="position" :src="loadStaticResource('/icons/no_position.png')" />
       <view class="wrapper">
         <text class="tips">您未授权定位</text>
         <text class="desc">我们无法为您匹配附近服务</text>
       </view>
-      <view class="btn">
+      <view class="btn" @click="handleClick()">
         <text>授权定位</text>
       </view>
     </view>
@@ -83,7 +121,6 @@
       font-size: 32rpx;
       font-weight: 500;
       color: $o-b80;
-      margin-bottom: 32rpx;
     }
     .tags {
       display: flex;
@@ -91,6 +128,7 @@
       font-size: 24rpx;
       color: $o-b60;
       position: relative;
+      margin-top: 32rpx;
       .tag {
         height: 48rpx;
         background-color: $o-w;
@@ -124,65 +162,100 @@
       flex-direction: column;
       align-items: center;
       .card {
-        @include o-card;
-        font-size: 24rpx;
-        color: $o-b60;
         margin-top: 24rpx;
-        .up {
-          padding: 32rpx;
-          .name {
-            font-size: 32rpx;
-            font-weight: 500;
-            color: $o-b80;
-          }
-          .desc {
+        width: $o-width;
+        background-color: $o-w;
+        padding: 32rpx;
+        border-radius: 16rpx;
+        .top {
+          @include flex-between-center;
+          .left {
             display: flex;
-            align-items: center;
-            margin-top: 6rpx;
-            .status {
-              color: $o-t;
+            flex-direction: column;
+            min-width: 0;
+            margin-right: 32rpx;
+            .title {
+              font-size: 32rpx;
+              color: $o-b80;
+              flex-shrink: 0;
+            }
+            .desc {
+              margin-top: 6rpx;
+              font-size: 24rpx;
+              color: $o-b60;
+              display: flex;
+              align-items: center;
+              .distance {
+                flex-shrink: 0;
+              }
+              .sep {
+                width: 1rpx;
+                height: 20rpx;
+                background-color: $o-b20;
+                margin: 0 12rpx;
+              }
             }
           }
-        }
-
-        .down {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 24rpx 32rpx;
-          position: relative;
-          .divider-h {
-            width: 622rpx;
-            height: 1rpx;
-            background-color: $o-b10;
-            position: absolute;
-            top: 0;
-          }
-          .nav {
-            display: flex;
-            align-items: center;
-            .img {
+          .right {
+            font-size: 20rpx;
+            color: $o-b60;
+            @include flex-column-center;
+            .icon {
               width: 48rpx;
               height: 48rpx;
-              margin-left: 16rpx;
+              margin-bottom: 4rpx;
+            }
+          }
+        }
+        .down {
+          margin-top: 24rpx;
+          @include flex-between-center;
+          .info {
+            font-size: 26rpx;
+            color: $o-t;
+            font-family: 'AlibabaPuHuiTi-3-55-Regular';
+            .price {
+              font-size: 46rpx;
+              font-family: 'AlibabaPuHuiTi-3-85-Bold';
+            }
+            .old-price {
+              font-size: 24rpx;
+              color: $o-b40;
+              margin-left: 8rpx;
+            }
+          }
+          .btn {
+            height: 64rpx;
+            padding: 0 24rpx;
+            border-radius: 12rpx;
+            background-color: $o-bg;
+            font-size: 26rpx;
+            color: $o-b80;
+            font-weight: 500;
+            @include flex-center;
+            .icon {
+              width: 16rpx;
+              height: 16rpx;
+              margin-left: 8rpx;
             }
           }
         }
       }
-      .slogan {
-        display: flex;
-        align-items: center;
-        font-size: 24rpx;
-        color: $o-b40;
-        padding: 32rpx 0;
-      }
     }
+    .slogan {
+      display: flex;
+      align-items: center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 32rpx 0;
+    }
+
     .no-position {
       display: flex;
       align-items: center;
       width: $o-width;
       height: 144rpx;
-      margin-bottom: 32rpx;
+      margin: 32rpx 0;
       border-radius: 16rpx;
       position: relative;
       .bg {

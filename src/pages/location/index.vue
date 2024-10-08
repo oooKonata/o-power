@@ -81,6 +81,8 @@
       flex-direction: column;
       align-items: center;
       .search {
+        font-size: 24rpx;
+        color: $o-b40;
         background-color: $o-bg;
         width: 100%;
         height: 64rpx;

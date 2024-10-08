@@ -35,3 +35,30 @@ export enum BANNER_URL_TYPE {
   EXTERNAL = 6,
   MP_URL = 7,
 }
+
+/**
+ * @description 油站类型
+ * 不传为全部 1-中石油 2-民营
+ */
+export enum OIL_STATION_TYPE {
+  ALL = 0,
+  ZSY = 1,
+  MY = 2,
+}
+
+/**
+ * @description 油品类
+ * 柴油0# 92# 95# 98#
+ */
+export enum OIL_TYPE {
+  T0 = '0#',
+  T92 = '92#',
+  T95 = '95#',
+  T98 = '98#',
+}
+
+export enum SORT_RULES {
+  RECOMMEND = 1,
+  DISTANCE = 2,
+  PRICE = 3,
+}

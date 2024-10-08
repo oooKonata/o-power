@@ -31,7 +31,7 @@
       storeBannerList.value = res
     })
 
-    // getLocation()
+    getLocation()
   })
 </script>
 

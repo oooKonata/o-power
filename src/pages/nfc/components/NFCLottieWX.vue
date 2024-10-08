@@ -5,10 +5,10 @@
 
   const lottieWX = ref()
 
-  const init = () => {
-    getCurrentInstance()!
-      // @ts-expect-error
-      .ctx.createSelectorQuery()
+  const init = async () => {
+    uni
+      .createSelectorQuery()
+      .in(getCurrentInstance()!)
       .select('#lottie')
       .node((res: any) => {
         const canvas = res.node

@@ -15,7 +15,7 @@
 <template>
   <view class="location" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="position" @click="handleClick">
-      <text>{{ storeLocation?.city || '未授权定位' }}</text>
+      <text>{{ storeLocation?.city || storeLocation?.province || '未授权定位' }}</text>
       <image class="icon" :src="loadStaticResource('/icons/position_more.png')" />
     </view>
   </view>
