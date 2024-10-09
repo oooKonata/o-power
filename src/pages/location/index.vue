@@ -5,24 +5,84 @@
   import ONav from '@/components/o-nav/o-nav.vue'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
-  import { onLoad } from '@dcloudio/uni-app'
+  import { onLoad, onPageScroll } from '@dcloudio/uni-app'
   import { storeToRefs } from 'pinia'
-  import { ref } from 'vue'
+  import { nextTick, ref } from 'vue'
 
   const { storeLocation } = storeToRefs(useLocationStore())
   const { safeAreaInsets } = useCacheStore()
 
   const cityList = ref<CityListWithPy[]>([])
   const hotCityList = ref<City[]>([])
+  const cellPageYList = ref<number[]>([])
+  const letterPageYList = ref<number[]>([])
+  const currentIndex = ref(0)
+  const isScroll = ref(false)
 
   const chooseCity = ({ code, item, provinceCode, province }: City) => {
     storeLocation.value = { ...storeLocation.value!, ...{ provinceCode, province, cityCode: code, city: item } }
     uni.navigateBack()
   }
 
+  const touchStart = () => {
+    isScroll.value = true
+  }
+  const touchEnd = () => {
+    isScroll.value = false
+  }
+  const touchMove = (e: any) => {
+    // 单指触摸
+    if (e.changedTouches.length !== 1) return
+    let index = letterPageYList.value.findIndex(item => item > e.changedTouches[0].clientY)
+    if (index === -1) {
+      currentIndex.value = letterPageYList.value.length - 1
+    } else {
+      currentIndex.value = index - 1
+    }
+
+    let scrollTop = cellPageYList.value[currentIndex.value] - safeAreaInsets!.top - 44
+    uni.pageScrollTo({
+      scrollTop: scrollTop,
+      // selector: `.mark${currentIndex.value}`,
+      duration: 0,
+    })
+  }
+
+  onPageScroll(e => {
+    const index = cellPageYList.value.findIndex(item => item > e.scrollTop)
+    if (index === 0) {
+      currentIndex.value = 0
+    } else if (index === -1) {
+      currentIndex.value = cellPageYList.value.length - 1
+    } else {
+      currentIndex.value = index - 1
+    }
+  })
+
   const init = async (params: { keyword?: string } = {}) => {
     cityList.value = await getCityListWithPy(params)
     hotCityList.value = await getHotCityList()
+    nextTick(() => {
+      getPageYList()
+    })
+  }
+
+  const getPageYList = () => {
+    uni
+      .createSelectorQuery()
+      .selectAll('.cell')
+      .boundingClientRect()
+      .exec((res: any) => {
+        cellPageYList.value = res[0].map((item: any) => item.top)
+      })
+
+    uni
+      .createSelectorQuery()
+      .selectAll('.letter')
+      .boundingClientRect()
+      .exec((res: any) => {
+        letterPageYList.value = res[0].map((item: any) => item.top)
+      })
   }
 
   onLoad(() => {
@@ -54,16 +114,16 @@
         </view>
       </view>
       <view class="list">
-        <view v-for="(item, index) in cityList" :key="index" class="item">
-          <text class="letter border">{{ item.title }}</text>
+        <view v-for="(item, index) in cityList" :key="index" class="cell">
+          <text class="alphabet border" :class="`mark${index}`">{{ item.title }}</text>
           <text v-for="(e, index) in item.list" :key="index" class="city border" @click="chooseCity(e)">{{ e.item }} </text>
         </view>
       </view>
       <view class="indicator">
-        <view v-for="(item, index) in cityList" :key="index" class="item">
-          <text :class="{ active: index === 0 }">{{ item.title }}</text>
-          <view v-if="index === 0" class="bubble">
-            <text class="tag">A</text>
+        <view v-for="(item, index) in cityList" :key="index" class="letter" @touchmove.stop.prevent="touchMove" @touchstart="touchStart" @touchend="touchEnd">
+          <text :class="{ active: index === currentIndex }">{{ item.title }}</text>
+          <view v-if="isScroll && currentIndex === index" class="bubble">
+            <text class="tag">{{ item.title }}</text>
             <image class="icon" :src="loadStaticResource('/icons/bubble.png')" />
           </view>
         </view>
@@ -141,14 +201,14 @@
       }
       .list {
         margin-top: 24rpx;
-        .item {
+        .cell {
           display: flex;
           flex-direction: column;
           width: $o-width;
           .border {
             border-bottom: 1rpx solid $o-b10;
           }
-          .letter {
+          .alphabet {
             display: flex;
             align-items: center;
             height: 72rpx;
@@ -177,7 +237,7 @@
         background-color: $o-bg;
         display: flex;
         flex-direction: column;
-        .item {
+        .letter {
           color: $o-b80;
           margin-top: 8rpx;
           width: 28rpx;
