@@ -20,7 +20,10 @@
   const isScroll = ref(false)
 
   const chooseCity = ({ code, item, provinceCode, province }: City) => {
-    storeLocation.value = { ...storeLocation.value!, ...{ provinceCode, province, cityCode: code, city: item } }
+    storeLocation.value = {
+      ...storeLocation.value!,
+      ...{ provinceCode, province, cityCode: code, city: item },
+    }
     uni.navigateBack()
   }
 
@@ -31,14 +34,10 @@
     isScroll.value = false
   }
   const touchMove = (e: any) => {
-    // 单指触摸
     if (e.changedTouches.length !== 1) return
     let index = letterPageYList.value.findIndex(item => item > e.changedTouches[0].clientY)
-    if (index === -1) {
-      currentIndex.value = letterPageYList.value.length - 1
-    } else {
-      currentIndex.value = index - 1
-    }
+    if (index === -1) index = letterPageYList.value.length
+    currentIndex.value = index - 1 <= 0 ? 0 : index - 1
 
     let scrollTop = cellPageYList.value[currentIndex.value] - safeAreaInsets!.top - 44
     uni.pageScrollTo({
@@ -49,15 +48,18 @@
   }
 
   onPageScroll(e => {
-    const index = cellPageYList.value.findIndex(item => item > e.scrollTop)
-    if (index === 0) {
-      currentIndex.value = 0
-    } else if (index === -1) {
-      currentIndex.value = cellPageYList.value.length - 1
-    } else {
-      currentIndex.value = index - 1
-    }
+    // 右边touchMove执行时，不执行页面滚动钩子
+    if (isScroll.value) return
+
+    let index = cellPageYList.value.findIndex(item => item > e.scrollTop + safeAreaInsets!.top + 44)
+
+    if (index === -1) index = cellPageYList.value.length
+    currentIndex.value = index - 1 <= 0 ? 0 : index - 1
   })
+
+  const handleConfirm = (e: any) => {
+    init({ keyword: e.detail.value })
+  }
 
   const init = async (params: { keyword?: string } = {}) => {
     cityList.value = await getCityListWithPy(params)
@@ -96,7 +98,13 @@
     <view class="content" :style="{paddingTop:`calc(${safeAreaInsets!.top + 44}px)`}">
       <view class="search">
         <image class="icon" :src="loadStaticResource('/icons/search.png')" />
-        <input type="text" class="input" placeholder="搜索城市" placeholder-style="font-size:28rpx; color:#999999" />
+        <input
+          type="text"
+          class="input"
+          placeholder="搜索城市"
+          placeholder-style="font-size:28rpx; color:#999999"
+          confirm-type="search"
+          @confirm="handleConfirm" />
       </view>
       <view class="position">
         <text class="title">当前定位</text>
@@ -141,8 +149,6 @@
       flex-direction: column;
       align-items: center;
       .search {
-        font-size: 24rpx;
-        color: $o-b40;
         background-color: $o-bg;
         width: 100%;
         height: 64rpx;
@@ -159,6 +165,8 @@
           margin-left: 12rpx;
           width: 594rpx;
           height: 100%;
+          font-size: 28rpx;
+          color: $o-b80;
         }
       }
       .position {
@@ -200,7 +208,7 @@
         }
       }
       .list {
-        margin-top: 24rpx;
+        padding-top: 24rpx;
         .cell {
           display: flex;
           flex-direction: column;
@@ -214,6 +222,7 @@
             height: 72rpx;
             font-size: 26rpx;
             color: $o-b60;
+            background-color: cyan;
           }
           .city {
             display: flex;
@@ -221,9 +230,9 @@
             height: 108rpx;
             font-size: 30rpx;
             color: $o-b80;
-            &:nth-last-child(1) {
-              border: none;
-            }
+            // &:nth-last-child(1) {
+            //   border: none;
+            // }
           }
         }
       }
