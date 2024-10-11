@@ -10,6 +10,7 @@
   import { nextTick, ref } from 'vue'
 
   const { storeLocation } = storeToRefs(useLocationStore())
+  const { getLocation } = useLocationStore()
   const { safeAreaInsets } = useCacheStore()
 
   const cityList = ref<CityListWithPy[]>([])
@@ -87,6 +88,11 @@
       })
   }
 
+  const updatePosition = () => {
+    getLocation()
+    uni.switchTab({ url: '/pagesTab/home/index' })
+  }
+
   onLoad(() => {
     init()
   })
@@ -107,7 +113,13 @@
           @confirm="handleConfirm" />
       </view>
       <view class="position">
-        <text class="title">当前定位</text>
+        <view class="wrapper" @click="updatePosition">
+          <text class="title">当前定位</text>
+          <view class="update-position">
+            <image class="get_position" :src="loadStaticResource('/icons/get_position.png')" />
+            <text class="update">当前定位</text>
+          </view>
+        </view>
         <view class="option current">
           <image class="icon" :src="loadStaticResource('/icons/location.png')" />
           <text>{{ storeLocation?.city }}</text>
@@ -179,6 +191,22 @@
           color: $o-b40;
           margin: 40rpx 0 24rpx 0;
         }
+        .wrapper {
+          @include flex-between-center;
+          .update-position {
+            display: flex;
+            align-items: center;
+            .get_position {
+              width: 32rpx;
+              height: 32rpx;
+              margin-right: 6rpx;
+            }
+            .update {
+              color: $o-t;
+            }
+          }
+        }
+
         .option {
           width: 218rpx;
           height: 72rpx;
@@ -222,7 +250,6 @@
             height: 72rpx;
             font-size: 26rpx;
             color: $o-b60;
-            background-color: cyan;
           }
           .city {
             display: flex;
