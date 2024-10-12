@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import OTab from '@/components/o-tab/o-tab.vue'
   import CardUser from './components/CardUser.vue'
   import OBg from '@/components/o-bg/o-bg.vue'
   import CardHolder from './components/CardHolder.vue'
   import CardCar from './components/CardCar.vue'
   import CardFunction from './components/CardFunction.vue'
+  import OTabbar from '@/components/o-tabbar/o-tabbar.vue'
 </script>
 
 <template>
@@ -14,7 +14,7 @@
     <CardHolder />
     <CardCar />
     <CardFunction />
-    <OTab :current="2" />
+    <OTabbar :current="2" />
   </view>
 </template>
 

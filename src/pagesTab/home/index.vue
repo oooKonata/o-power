@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import OSwiper from '@/components/o-swiper/o-swiper.vue'
-  import OTab from '@/components/o-tab/o-tab.vue'
   import UserInfo from './components/UserInfo.vue'
   import QuickLink from './components/QuickLink.vue'
   import NearbyService from './components/NearbyService.vue'
@@ -12,9 +10,11 @@
   import Location from './components/Location.vue'
   import { getbannerList } from '@/api/common'
   import { useCacheStore } from '@/store/cache'
-  import BannerSwiper from '@/components/BannerSwiper.vue'
   import { BANNER_TYPE } from '@/enums'
   import CardGrid from './components/CardGrid.vue'
+  import OTabbar from '@/components/o-tabbar/o-tabbar.vue'
+  import BannerSwiper from '@/components/BannerSwiper/BannerSwiper.vue'
+  import OTags from '@/components/o-tags/o-tags.vue'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())
@@ -44,7 +44,7 @@
     <CardGrid />
     <BannerSwiper size="normal" :type="BANNER_TYPE.OIL_HOME" class="home-banner" />
     <NearbyService />
-    <OTab :current="0" />
+    <OTabbar :current="0" />
   </view>
 </template>
 

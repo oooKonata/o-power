@@ -2,6 +2,7 @@
   import { getOilStationListAll } from '@/api/oil'
   import type { OilStation } from '@/api/types/oil'
   import { loadStaticResource } from '@/assets'
+  import OTags from '@/components/o-tags/o-tags.vue'
   import { OIL_STATION_TYPE, OIL_TYPE, SORT_RULES } from '@/enums'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
@@ -34,6 +35,9 @@
   const handleClick = () => {
     getLocation()
   }
+
+  const current = ref(0)
+  const handleChange = (index: number, data: string) => console.log(index, data)
 </script>
 
 <template>
@@ -41,22 +45,14 @@
     <view class="title">附近服务</view>
     <view v-if="hasLocation">
       <view class="tags">
-        <view class="tag active">
-          <text>加油</text>
-        </view>
-        <view class="tag">
-          <text>充电</text>
-        </view>
-        <view class="tag">
-          <text>洗车</text>
-        </view>
+        <OTags v-model:current="current" :list="['加油', '充电', '洗车']" @change="handleChange" />
         <view class="more">
           <text>查看全部</text>
-          <image class="icon_more" :src="loadStaticResource('/icons/more_small.png')" />
+          <image class="icon" :src="loadStaticResource('/icons/more_small.png')" />
         </view>
       </view>
-      <view class="cards">
-        <view v-for="(item, index) in oilStationList" :key="index" class="card">
+      <view v-if="oilStationList.length" class="cards">
+        <view v-for="(item, index) in oilStationList" :key="index" class="card-oil">
           <view class="top">
             <view class="left">
               <text class="title ellipsis">{{ item.title }}</text>
@@ -84,6 +80,7 @@
             </view>
           </view>
         </view>
+        <view class="card-washcar"> </view>
         <view class="slogan">
           <text>星和动力</text>
           <view class="divider-v"></view>
@@ -91,6 +88,10 @@
           <view class="divider-v"></view>
           <text>品质服务</text>
         </view>
+      </view>
+      <view v-else class="empty">
+        <image class="empty-bg" :src="loadStaticResource('/bg/empty.png')" />
+        <text>暂无油站～</text>
       </view>
     </view>
     <view v-else class="no-position">
@@ -100,7 +101,7 @@
         <text class="tips">您未授权定位</text>
         <text class="desc">我们无法为您匹配附近服务</text>
       </view>
-      <view class="btn" @click="handleClick()">
+      <view class="btn" @click="handleClick">
         <text>授权定位</text>
       </view>
     </view>
@@ -122,6 +123,19 @@
       font-weight: 500;
       color: $o-b80;
     }
+    .empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 24rpx 0 32rpx 0;
+      &-bg {
+        width: 240rpx;
+        height: 240rpx;
+        margin-bottom: 32rpx;
+      }
+    }
     .tags {
       display: flex;
       align-items: center;
@@ -129,20 +143,6 @@
       color: $o-b60;
       position: relative;
       margin-top: 32rpx;
-      .tag {
-        height: 48rpx;
-        background-color: $o-w;
-        display: flex;
-        align-items: center;
-        padding: 0 24rpx;
-        border-radius: 999rpx;
-        margin-right: 16rpx;
-      }
-      .active {
-        background-color: rgb(232, 244, 240);
-        border: 1rpx solid $o-t;
-        color: $o-t;
-      }
       .more {
         font-size: 24rpx;
         color: $o-b40;
@@ -150,7 +150,7 @@
         align-items: center;
         position: absolute;
         right: 0;
-        .icon_more {
+        .icon {
           width: 16rpx;
           height: 32rpx;
           margin-left: 4rpx;
@@ -161,7 +161,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      .card {
+      .card-oil {
         margin-top: 24rpx;
         width: $o-width;
         background-color: $o-w;

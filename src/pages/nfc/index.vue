@@ -6,7 +6,7 @@
   import CardGrid from './components/CardGrid.vue'
   import CardCoupon from './components/CardCoupon.vue'
   import CardRecomend from './components/CardRecomend.vue'
-  import BannerSwiper from '@/components/BannerSwiper.vue'
+  import BannerSwiper from '@/components/BannerSwiper/BannerSwiper.vue'
 </script>
 
 <template>
