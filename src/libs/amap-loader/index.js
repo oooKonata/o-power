@@ -48,7 +48,6 @@ const getLocationH5 = () => {
     // 获取逆编码后地址信息
     geolocation.getCurrentPosition((status, result) => {
       if (status === 'complete') {
-        console.log(result.addressComponent)
         const { province, citycode, city, adcode } = result.addressComponent
         const { lng, lat } = result.position
         location = {

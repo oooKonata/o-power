@@ -36,8 +36,10 @@
     getLocation()
   }
 
-  const current = ref(0)
-  const handleChange = (index: number, data: string) => console.log(index, data)
+  const current = ref(1)
+  const handleChange = (index: number, data: string) => {
+    console.log(index, data)
+  }
 </script>
 
 <template>

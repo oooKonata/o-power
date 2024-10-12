@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, type CSSProperties } from 'vue'
+  import { computed, onMounted, ref, watch, type CSSProperties } from 'vue'
 
   const props = withDefaults(
     defineProps<{
@@ -10,20 +10,30 @@
     }>(),
     {
       list: () => ['标签1', '标签2', '标签3'],
-      current: 0,
+      current: undefined,
       gap: '16rpx',
       itemStyles: () => ({}),
     }
   )
 
   const emit = defineEmits<{
+    (e: 'update:current', index: number): void
     (e: 'change', index: number, item: string): void
   }>()
 
   const contextStyle = computed(() => ({ gap: props.gap }))
 
+  const _current = ref(0)
+
   const handleClick = (index: number, item: string) => {
-    emit('change', index, item)
+    if (props.current === undefined) {
+      _current.value = index
+      console.log(111)
+    } else {
+      emit('update:current', index)
+      _current.value = props.current
+      console.log('222', _current.value)
+    }
   }
 </script>
 
@@ -36,7 +46,7 @@
           :key="index"
           class="o-tags__scroll__context__item"
           :style="itemStyles"
-          :class="{ 'o-tags--active': index === current }"
+          :class="{ 'o-tags--active': index === _current }"
           @click="handleClick(index, item)">
           {{ item }}
         </view>
@@ -60,11 +70,13 @@
           padding: 0 24rpx;
           border-radius: 999rpx;
           background-color: #fff;
+          border: 1rpx solid transparent;
         }
       }
     }
     &--active {
       color: $o-t !important;
+      font-weight: 700;
       background-color: $o-t-bg !important;
       border: 1rpx solid $o-t !important;
     }
