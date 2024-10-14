@@ -23,16 +23,15 @@
 
   const contextStyle = computed(() => ({ gap: props.gap }))
 
-  const _current = ref(0)
+  const defaultCurrent = ref(0)
+  const _current = computed(() => (props.current === undefined ? defaultCurrent.value : props.current))
 
   const handleClick = (index: number, item: string) => {
     if (props.current === undefined) {
-      _current.value = index
-      console.log(111)
+      defaultCurrent.value = index
     } else {
       emit('update:current', index)
-      _current.value = props.current
-      console.log('222', _current.value)
+      defaultCurrent.value = props.current
     }
   }
 </script>

@@ -38,7 +38,7 @@
 
   const current = ref(1)
   const handleChange = (index: number, data: string) => {
-    console.log(index, data)
+    console.log(111)
   }
 </script>
 
