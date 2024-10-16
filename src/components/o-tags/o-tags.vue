@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, onMounted, ref, watch, type CSSProperties } from 'vue'
+  import { computed, ref, type CSSProperties } from 'vue'
 
   const props = withDefaults(
     defineProps<{
@@ -7,6 +7,7 @@
       current?: number
       gap?: string
       itemStyles?: CSSProperties
+      itemActiveStyles?: CSSProperties
     }>(),
     {
       list: () => ['标签1', '标签2', '标签3'],
@@ -27,6 +28,7 @@
   const _current = computed(() => (props.current === undefined ? defaultCurrent.value : props.current))
 
   const handleClick = (index: number, item: string) => {
+    emit('change', index, item)
     if (props.current === undefined) {
       defaultCurrent.value = index
     } else {
@@ -44,7 +46,7 @@
           v-for="(item, index) in list"
           :key="index"
           class="o-tags__scroll__context__item"
-          :style="itemStyles"
+          :style="[itemStyles, itemActiveStyles]"
           :class="{ 'o-tags--active': index === _current }"
           @click="handleClick(index, item)">
           {{ item }}

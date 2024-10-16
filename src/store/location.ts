@@ -33,8 +33,8 @@ export const useLocationStore = defineStore(
       } else {
         uni.showToast({ title: '定位异常，将使用默认定位', icon: 'none' })
         storeLocation.value = {
-          longitude: 114.358818,
-          latitude: 30.579854,
+          longitude: '114.358818',
+          latitude: '30.579854',
           provinceCode: '420000',
           province: '湖北省',
           cityCode: '420100',

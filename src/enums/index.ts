@@ -57,8 +57,22 @@ export enum OIL_TYPE {
   T98 = '98#',
 }
 
-export enum SORT_RULES {
+/**
+ * @description 油站排序
+ * 1-推荐 2-距离 3-价格
+ */
+export enum SORT_OIL {
   RECOMMEND = 1,
   DISTANCE = 2,
   PRICE = 3,
+}
+
+/**
+ * @description 油站排序
+ * 1-价格 2-距离 3-推荐
+ */
+export enum SORT_CARWASH {
+  PRICE = 1,
+  DISTANCE = 2,
+  RECOMMEND = 3,
 }

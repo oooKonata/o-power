@@ -40,7 +40,10 @@
   <view class="o-tab">
     <image :src="loadStaticResource('/tabs/bg_airplane.png')" class="bg-airplane" />
     <view v-for="(item, index) in tabbarList" :key="index" class="tab" @click="changeSelect(item)">
-      <image :src="current === index ? item.selectedIconPath : item.iconPath" class="image" :class="{ airplane: index === 1 }" />
+      <image
+        :src="current === index ? item.selectedIconPath : item.iconPath"
+        class="image"
+        :class="{ airplane: index === 1 }" />
       <view v-if="item.text" class="text" :class="{ 'text-active': current === index }">{{ item.text }}</view>
     </view>
   </view>

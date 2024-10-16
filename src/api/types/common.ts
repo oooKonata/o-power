@@ -29,8 +29,8 @@ export interface City {
 }
 
 export interface Location {
-  longitude: number
-  latitude: number
+  longitude: string
+  latitude: string
   provinceCode: string
   province: string
   cityCode: string
