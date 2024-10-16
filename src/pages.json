@@ -76,6 +76,12 @@
           "style": {
             "navigationStyle": "custom"
           }
+        },
+        {
+          "path": "discountOil/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
         }
       ]
     }

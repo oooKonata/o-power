@@ -45,6 +45,7 @@
         cityCode: storeLocation.value!.cityCode,
       })
       carWashStationList.value = carWashStationListAll.list
+      console.log(carWashStationList.value)
     }
   }
 
@@ -89,25 +90,37 @@
         </view>
       </view>
 
-      <view v-if="oilStationList.length" class="nearby-service--oil-station-list">
+      <view v-if="current === 0 && oilStationList.length" class="nearby-service--oil-station-list">
         <OilStationCardList :list="oilStationList" />
         <view class="slogan">
           <text>星和动力</text>
           <view class="sep"></view>
           <text>品牌优选</text>
           <view class="sep"></view>
-          <text>品质服务</text>
+          <text>优惠加油</text>
         </view>
       </view>
 
-      <view v-if="carWashStationList?.length" class="nearby-service--car-wash-list">
-        <CarWashCardList :list="carWashStationList" />
+      <view v-if="current === 0 && !oilStationList.length" class="empty">
+        <image class="bg" :src="loadStaticResource('/bg/empty.png')" />
+        <text>暂无油站～</text>
       </view>
 
-      <!-- <view v-else class="nearby-service--empty">
-        <image class="empty-bg" :src="loadStaticResource('/bg/empty.png')" />
-        <text>暂无油站～</text>
-      </view> -->
+      <view v-if="current === 1 && carWashStationList?.length" class="nearby-service--car-wash-list">
+        <CarWashCardList :list="carWashStationList" />
+        <view class="slogan">
+          <text>星和动力</text>
+          <view class="sep"></view>
+          <text>品牌优选</text>
+          <view class="sep"></view>
+          <text>优惠洗车</text>
+        </view>
+      </view>
+
+      <view v-if="current === 1 && !carWashStationList?.length" class="empty">
+        <image class="bg" :src="loadStaticResource('/bg/empty.png')" />
+        <text>暂无洗车门店～</text>
+      </view>
     </view>
   </view>
 </template>
@@ -187,28 +200,30 @@
     }
     &--oil-station-list {
       @include flex-column-center;
-      .slogan {
-        display: flex;
-        align-items: center;
-        font-size: 24rpx;
-        color: $o-b40;
-        padding: 32rpx 0;
-        .sep {
-          width: 1rpx;
-          height: 20rpx;
-          background-color: $o-b20;
-          margin: 0 12rpx;
-        }
+    }
+    .slogan {
+      width: $o-width;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 32rpx 0;
+      .sep {
+        width: 1rpx;
+        height: 20rpx;
+        background-color: $o-b20;
+        margin: 0 12rpx;
       }
     }
-    &--empty {
+    .empty {
       display: flex;
       flex-direction: column;
       align-items: center;
       font-size: 24rpx;
       color: $o-b40;
       padding: 24rpx 0 32rpx 0;
-      &-bg {
+      .bg {
         width: 240rpx;
         height: 240rpx;
         margin-bottom: 32rpx;

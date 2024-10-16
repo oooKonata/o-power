@@ -1,10 +1,14 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
+
+  const navToDiscountOil = () => {
+    uni.navigateTo({ url: '/pages/discountOil/index' })
+  }
 </script>
 
 <template>
   <view class="quick-link">
-    <view class="quick-link__left">
+    <view class="quick-link__left" @click="navToDiscountOil">
       <view class="tag">
         <text>购券更优惠</text>
       </view>

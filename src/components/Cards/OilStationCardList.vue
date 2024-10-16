@@ -103,6 +103,7 @@
             font-size: 24rpx;
             color: $o-b40;
             margin-left: 8rpx;
+            text-decoration: line-through;
           }
         }
         .btn {

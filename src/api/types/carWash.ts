@@ -12,8 +12,6 @@ export interface SdoWashStationQuery {
   serviceId?: number
 }
 
-// export interface sdoWashStation {}
-
 export interface SdoWashStation {
   shopName: string
   shopCode: string
@@ -27,12 +25,19 @@ export interface SdoWashStation {
   address: string
   logo: string
   distance: string
-  services: any[]
+  services: Service[]
   isLast: boolean
   baiduCoordinate: string
   gaodeCoordinate: string
 }
 
+export interface Service {
+  serviceName: string
+  faceValue: string
+  sellPrice: string
+  couponId: number
+  title: string
+}
 export interface SdoWashStationList {
   list: SdoWashStation[]
   totalCount: number
