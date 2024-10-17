@@ -25,7 +25,7 @@
 <template>
   <view class="o-swiper">
     <swiper
-      :class="{ 'o-swiper__image--big': size === 'big', 'o-swiper__image--normal': size === 'normal' }"
+      :class="{ 'o-swiper--image__big': size === 'big', 'o-swiper--image__normal': size === 'normal' }"
       :autoplay="autoplay"
       :interval="interval"
       :circular="circular"
@@ -34,7 +34,7 @@
         <image class="img" :src="url" />
       </swiper-item>
     </swiper>
-    <view :class="{ 'o-swiper__dots--big': size === 'big', 'o-swiper__dots--normal': size === 'normal' }">
+    <view :class="{ 'o-swiper--dots__big': size === 'big', 'o-swiper--dots__normal': size === 'normal' }">
       <view v-for="(item, index) in urls" :key="index" class="dot" :class="{ active: flag === index }" />
     </view>
   </view>
@@ -43,8 +43,8 @@
 <style scoped lang="scss">
   .o-swiper {
     position: relative;
-    &__image {
-      &--big {
+    &--image {
+      &__big {
         width: 750rpx;
         height: 534rpx;
         .img {
@@ -52,7 +52,7 @@
           height: 100%;
         }
       }
-      &--normal {
+      &__normal {
         width: 750rpx;
         height: 216rpx;
         display: flex;
@@ -65,14 +65,14 @@
       }
     }
 
-    &__dots {
-      &--big {
+    &--dots {
+      &__big {
         display: flex;
         position: absolute;
         right: 32rpx;
         bottom: 110rpx;
       }
-      &--normal {
+      &__normal {
         display: flex;
         position: absolute;
         bottom: 12rpx;
