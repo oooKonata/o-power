@@ -45,7 +45,6 @@
         cityCode: storeLocation.value!.cityCode,
       })
       carWashStationList.value = carWashStationListAll.list
-      console.log(carWashStationList.value)
     }
   }
 

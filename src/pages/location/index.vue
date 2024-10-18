@@ -23,7 +23,7 @@
   const chooseCity = ({ code, item, provinceCode, province }: City) => {
     storeLocation.value = {
       ...storeLocation.value!,
-      ...{ provinceCode, province, cityCode: code, city: item },
+      ...{ provinceCode, province, adCode: code, city: item },
     }
     uni.navigateBack()
   }
@@ -64,6 +64,7 @@
 
   const init = async (params: { keyword?: string } = {}) => {
     cityList.value = await getCityListWithPy(params)
+
     hotCityList.value = await getHotCityList()
     nextTick(() => {
       getPageYList()
@@ -88,8 +89,8 @@
       })
   }
 
-  const updatePosition = () => {
-    getLocation()
+  const updatePosition = async () => {
+    await getLocation()
     uni.switchTab({ url: '/pagesTab/home/index' })
   }
 
@@ -117,12 +118,14 @@
           <text class="title">当前定位</text>
           <view class="update-position">
             <image class="get_position" :src="loadStaticResource('/icons/get_position.png')" />
-            <text class="update">当前定位</text>
+            <text class="update">自动定位</text>
           </view>
         </view>
         <view class="option current">
           <image class="icon" :src="loadStaticResource('/icons/location.png')" />
-          <text>{{ storeLocation?.city }}</text>
+          <text>{{
+            storeLocation!.city.length <= 3 ? storeLocation!.city : storeLocation!.city.slice(0, 4) + '...'
+          }}</text>
         </view>
       </view>
       <view class="position">
@@ -136,11 +139,19 @@
       <view class="list">
         <view v-for="(item, index) in cityList" :key="index" class="cell">
           <text class="alphabet border" :class="`mark${index}`">{{ item.title }}</text>
-          <text v-for="(e, index) in item.list" :key="index" class="city border" @click="chooseCity(e)">{{ e.item }} </text>
+          <text v-for="(e, index) in item.list" :key="index" class="city border" @click="chooseCity(e)"
+            >{{ e.item }}
+          </text>
         </view>
       </view>
       <view class="indicator">
-        <view v-for="(item, index) in cityList" :key="index" class="letter" @touchmove.stop.prevent="touchMove" @touchstart="touchStart" @touchend="touchEnd">
+        <view
+          v-for="(item, index) in cityList"
+          :key="index"
+          class="letter"
+          @touchmove.stop.prevent="touchMove"
+          @touchstart="touchStart"
+          @touchend="touchEnd">
           <text :class="{ active: index === currentIndex }">{{ item.title }}</text>
           <view v-if="isScroll && currentIndex === index" class="bubble">
             <text class="tag">{{ item.title }}</text>

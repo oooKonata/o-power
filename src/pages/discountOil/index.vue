@@ -12,7 +12,7 @@
     <ONav title="优惠加油" />
     <view class="top">
       <OBg :type="'green_white'" />
-      <OSearch class="o-search" :style="{paddingTop:`calc(${safeAreaInsets!.top + 44}px + 20rpx)`}" />
+      <OSearch position weather class="o-search" :style="{paddingTop:`calc(${safeAreaInsets!.top + 44}px + 20rpx)`}" />
     </view>
   </view>
 </template>

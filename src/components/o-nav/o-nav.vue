@@ -38,7 +38,7 @@
 
 <style scoped lang="scss">
   .o-nav {
-    z-index: 99;
+    z-index: 999;
     position: fixed;
     left: 0;
     .content {

@@ -1,25 +1,32 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
   import { useLocationStore } from '@/store/location'
+  import { useWeatherStore } from '@/store/weather'
   import { storeToRefs } from 'pinia'
-  import { onMounted } from 'vue'
+  import { onMounted, watch } from 'vue'
 
-  const props = withDefaults(
-    defineProps<{
-      position: boolean
-      weather: boolean
-    }>(),
-    {
-      position: true,
-      weather: true,
-    }
-  )
+  const props = defineProps<{
+    position?: boolean
+    weather?: boolean
+  }>()
 
   const { storeLocation } = storeToRefs(useLocationStore())
+  const { storeWeather } = storeToRefs(useWeatherStore())
+  const { getWeather } = useWeatherStore()
 
   const handleClick = () => {
     uni.navigateTo({ url: '/pages/location/index' })
   }
+
+  watch(storeLocation, () => {
+    getWeather()
+  })
+
+  onMounted(() => {
+    if (props.position) {
+      getWeather()
+    }
+  })
 </script>
 
 <template>
@@ -38,8 +45,8 @@
       </view>
     </view>
     <view v-if="weather" class="o-search--weather">
-      <text>晴朗</text>
-      <image class="icon" :src="loadStaticResource('/weather/sunny.png')" />
+      <text>{{ storeWeather?.title }}</text>
+      <image class="icon" :src="loadStaticResource(storeWeather!.icon)" />
     </view>
   </view>
 </template>
@@ -87,6 +94,8 @@
         .input {
           width: 100%;
           height: 64rpx;
+          color: $o-b80;
+          font-size: 28rpx;
         }
       }
     }

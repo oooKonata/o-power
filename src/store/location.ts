@@ -29,7 +29,6 @@ export const useLocationStore = defineStore(
 
       if (res) {
         storeLocation.value = res.value
-        uni.showToast({ title: '定位成功', icon: 'none' })
       } else {
         uni.showToast({ title: '定位异常，将使用默认定位', icon: 'none' })
         storeLocation.value = {

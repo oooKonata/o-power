@@ -14,7 +14,6 @@
   import CardGrid from './components/CardGrid.vue'
   import OTabbar from '@/components/o-tabbar/o-tabbar.vue'
   import BannerSwiper from '@/components/BannerSwiper/BannerSwiper.vue'
-  import OTags from '@/components/o-tags/o-tags.vue'
 
   const { storeUserInfo, storeIsLogin } = storeToRefs(useUserStore())
   const { storeBannerList } = storeToRefs(useCacheStore())

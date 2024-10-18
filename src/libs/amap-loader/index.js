@@ -1,5 +1,5 @@
 import AMapLoader from '@amap/amap-jsapi-loader'
-import { ref } from 'vue'
+import { watch } from 'vue'
 
 window._AMapSecurityConfig = {
   securityJsCode: 'e5a1fc65e4e87debf400098d524e12d6',
@@ -49,6 +49,7 @@ const getLocationH5 = () => {
     geolocation.getCurrentPosition((status, result) => {
       if (status === 'complete') {
         const { province, citycode, city, adcode } = result.addressComponent
+        console.log(result.addressComponent)
         const { lng, lat } = result.position
         location = {
           longitude: lng,
@@ -73,15 +74,27 @@ const getWeatherH5 = () => {
   return new Promise((resolve, reject) => {
     wrapper(async () => {
       const getweather = new AMap.Weather()
-      await getLocationH5()
-      getweather.getLive((location.adCode), (err, data) => {
-        if (!err) {
-          resolve(data)
-        } else {
-          console.log('获取天气失败', err)
-          reject(err)
-        }
-      })
+
+      let data = JSON.parse(uni.getStorageSync('XHDL-LOCATION'))
+
+      if (!data) {
+        await getLocationH5()
+        getweather.getLive(location.adCode, (err, data) => {
+          if (!err) {
+            resolve(data)
+          } else {
+            reject(err)
+          }
+        })
+      } else {
+        getweather.getLive(data.storeLocation.adCode, (err, data) => {
+          if (!err) {
+            resolve(data)
+          } else {
+            reject(err)
+          }
+        })
+      }
     })
   })
 }
