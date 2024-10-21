@@ -3,11 +3,16 @@
   import { useLocationStore } from '@/store/location'
   import { useWeatherStore } from '@/store/weather'
   import { storeToRefs } from 'pinia'
-  import { onMounted, watch } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
 
   const props = defineProps<{
     position?: boolean
     weather?: boolean
+  }>()
+
+  const emits = defineEmits<{
+    (e: 'update:value', val: string): void
+    (e: 'confirm'): void
   }>()
 
   const { storeLocation } = storeToRefs(useLocationStore())
@@ -21,6 +26,12 @@
   watch(storeLocation, () => {
     getWeather()
   })
+
+  const handleConfirm = async (e: any) => {
+    emits('update:value', e.detail.value)
+    console.log('e', e.detail.value)
+    emits('confirm')
+  }
 
   onMounted(() => {
     if (props.position) {
@@ -41,7 +52,12 @@
       </view>
       <view class="search">
         <image class="icon" :src="loadStaticResource('/icons/search.png')" />
-        <input type="text" class="input" placeholder="搜索油站" placeholder-style="font-size:28rpx;color:#999999" />
+        <input
+          type="text"
+          class="input"
+          placeholder="搜索油站"
+          placeholder-style="font-size:28rpx;color:#999999"
+          @confirm="handleConfirm" />
       </view>
     </view>
     <view v-if="weather" class="o-search--weather">

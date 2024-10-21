@@ -49,7 +49,6 @@ const getLocationH5 = () => {
     geolocation.getCurrentPosition((status, result) => {
       if (status === 'complete') {
         const { province, citycode, city, adcode } = result.addressComponent
-        console.log(result.addressComponent)
         const { lng, lat } = result.position
         location = {
           longitude: lng,
@@ -69,15 +68,40 @@ const getLocationH5 = () => {
   })
 }
 
+import { useLocationStore } from '@/store/location.ts'
 // 获取天气信息
 const getWeatherH5 = () => {
   return new Promise((resolve, reject) => {
     wrapper(async () => {
       const getweather = new AMap.Weather()
 
-      let data = JSON.parse(uni.getStorageSync('XHDL-LOCATION'))
 
-      if (!data) {
+      // 天气 -> 本地位置信息存在，就使用本地定位；不存在，获取当前定位的天气
+
+      // let storageLocation = JSON.parse(uni.getStorageSync('XHDL-LOCATION'))
+
+      // if (!useLocationStore) {
+      //   await getLocationH5()
+      //   getweather.getLive(location.adCode, (err, data) => {
+      //     if (!err) {
+      //       resolve(data)
+      //     } else {
+      //       reject(err)
+      //     }
+      //   })
+      // } else {
+      //   getweather.getLive(storageLocation.storeLocation.adCode, (err, data) => {
+      //     if (!err) {
+      //       resolve(data)
+      //     } else {
+      //       reject(err)
+      //     }
+      //   })
+      // }
+
+      const { storeLocation } = useLocationStore()
+
+      if (!storeLocation) {
         await getLocationH5()
         getweather.getLive(location.adCode, (err, data) => {
           if (!err) {
@@ -87,7 +111,7 @@ const getWeatherH5 = () => {
           }
         })
       } else {
-        getweather.getLive(data.storeLocation.adCode, (err, data) => {
+        getweather.getLive(storeLocation.adCode, (err, data) => {
           if (!err) {
             resolve(data)
           } else {
@@ -95,6 +119,8 @@ const getWeatherH5 = () => {
           }
         })
       }
+
+
     })
   })
 }

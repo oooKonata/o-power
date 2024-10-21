@@ -91,7 +91,8 @@
 
   const updatePosition = async () => {
     await getLocation()
-    uni.switchTab({ url: '/pagesTab/home/index' })
+    // uni.switchTab({ url: '/pagesTab/home/index' })
+    uni.navigateBack()
   }
 
   onLoad(() => {

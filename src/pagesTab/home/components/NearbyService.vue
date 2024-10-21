@@ -78,11 +78,7 @@
 
     <view v-else>
       <view class="nearby-service--tags">
-        <OTags
-          v-model:current="current"
-          :list="['加油', '洗车']"
-          :itemStyles="{ '--aaa': '#000' }"
-          @change="handleChange" />
+        <OTags v-model:current="current" :list="['加油', '洗车']" @change="handleChange" />
         <view class="more">
           <text>查看全部</text>
           <image class="icon" :src="loadStaticResource('/icons/more_small.png')" />

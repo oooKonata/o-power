@@ -1,9 +1,9 @@
 import type { OIL_STATION_TYPE, OIL_TYPE, SORT_OIL } from '@/enums'
 
 export interface OilStationQuery {
-  provinceCode: string
   longitude: string
   latitude: string
+  provinceCode: string
   stationName?: string
   type: OIL_STATION_TYPE
   oilNo: OIL_TYPE
