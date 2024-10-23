@@ -3,6 +3,7 @@
   import type { City, CityListWithPy } from '@/api/types/common'
   import { loadStaticResource } from '@/assets'
   import ONav from '@/components/o-nav/o-nav.vue'
+  import OSearch from '@/components/o-search/o-search.vue'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
   import { onLoad, onPageScroll } from '@dcloudio/uni-app'
@@ -58,8 +59,8 @@
     currentIndex.value = index - 1 <= 0 ? 0 : index - 1
   })
 
-  const handleConfirm = (e: any) => {
-    init({ keyword: e.detail.value })
+  const handleConfirm = (value: string) => {
+    init({ keyword: value })
   }
 
   const init = async (params: { keyword?: string } = {}) => {
@@ -104,16 +105,7 @@
   <view class="page">
     <ONav title="选择位置" type="close" hasBgColor />
     <view class="content" :style="{paddingTop:`calc(${safeAreaInsets!.top + 44}px)`}">
-      <view class="search">
-        <image class="icon" :src="loadStaticResource('/icons/search.png')" />
-        <input
-          type="text"
-          class="input"
-          placeholder="搜索城市"
-          placeholder-style="font-size:28rpx; color:#999999"
-          confirm-type="search"
-          @confirm="handleConfirm" />
-      </view>
+      <OSearch type="light" :style="{ padding: 0 }" placeholder="搜索城市" @confirm="handleConfirm" />
       <view class="position">
         <view class="wrapper" @click="updatePosition">
           <text class="title">当前定位</text>
@@ -172,27 +164,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      .search {
-        background-color: $o-bg;
-        width: 100%;
-        height: 64rpx;
-        border-radius: 999rpx;
-        margin-top: 20rpx;
-        display: flex;
-        align-items: center;
-        .icon {
-          width: 32rpx;
-          height: 32rpx;
-          margin-left: 24rpx;
-        }
-        .input {
-          margin-left: 12rpx;
-          width: 594rpx;
-          height: 100%;
-          font-size: 28rpx;
-          color: $o-b80;
-        }
-      }
+      // .search {
+      //   background-color: $o-bg;
+      //   width: 100%;
+      //   height: 64rpx;
+      //   border-radius: 999rpx;
+      //   margin-top: 20rpx;
+      //   display: flex;
+      //   align-items: center;
+      //   .icon {
+      //     width: 32rpx;
+      //     height: 32rpx;
+      //     margin-left: 24rpx;
+      //   }
+      //   .input {
+      //     margin-left: 12rpx;
+      //     width: 594rpx;
+      //     height: 100%;
+      //     font-size: 28rpx;
+      //     color: $o-b80;
+      //   }
+      // }
       .position {
         width: 100%;
         color: $o-b80;

@@ -5,14 +5,21 @@
   import { storeToRefs } from 'pinia'
   import { onMounted, ref, watch } from 'vue'
 
-  const props = defineProps<{
-    position?: boolean
-    weather?: boolean
-  }>()
+  const props = withDefaults(
+    defineProps<{
+      type?: 'dark' | 'light'
+      position?: boolean
+      weather?: boolean
+      placeholder: string
+    }>(),
+    {
+      type: 'dark',
+      placeholder: '搜索',
+    }
+  )
 
   const emits = defineEmits<{
-    (e: 'update:value', val: string): void
-    (e: 'confirm'): void
+    (e: 'confirm', value: string): void
   }>()
 
   const { storeLocation } = storeToRefs(useLocationStore())
@@ -27,10 +34,8 @@
     getWeather()
   })
 
-  const handleConfirm = async (e: any) => {
-    emits('update:value', e.detail.value)
-    console.log('e', e.detail.value)
-    emits('confirm')
+  const handleConfirm = (e: any) => {
+    emits('confirm', e.detail.value)
   }
 
   onMounted(() => {
@@ -42,7 +47,9 @@
 
 <template>
   <view class="o-search">
-    <view class="o-search--search">
+    <view
+      class="o-search--search"
+      :class="props.type === 'dark' ? 'o-search--search__dark' : 'o-search--search__light'">
       <view v-if="position" class="position" @click="handleClick">
         <text class="ellipsis">{{
           storeLocation!.city.length <= 3 ? storeLocation!.city : storeLocation!.city.slice(0, 2) + '...'
@@ -55,7 +62,7 @@
         <input
           type="text"
           class="input"
-          placeholder="搜索油站"
+          :placeholder="placeholder"
           placeholder-style="font-size:28rpx;color:#999999"
           @confirm="handleConfirm" />
       </view>
@@ -71,6 +78,7 @@
   .o-search {
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 0 32rpx;
     &--search {
       width: 100%;
@@ -113,6 +121,12 @@
           color: $o-b80;
           font-size: 28rpx;
         }
+      }
+      &__dark {
+        background-color: #fff;
+      }
+      &__light {
+        background-color: $o-bg;
       }
     }
     &--weather {
