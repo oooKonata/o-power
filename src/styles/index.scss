@@ -29,6 +29,11 @@ image {
   text-overflow: ellipsis;
 }
 
+// 全局隐藏滚动条
+::-webkit-scrollbar {
+  display: none;
+}
+
 @font-face {
   font-family: 'AlibabaPuHuiTi-3-55-Regular';
   src: url('@/static/font/AlibabaPuHuiTi-3-55-Regular.ttf');
