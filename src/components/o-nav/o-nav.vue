@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { loadStaticResource } from '@/assets'
   import { useCacheStore } from '@/store/cache'
-  import { storeToRefs } from 'pinia'
 
   const { safeAreaInsets } = useCacheStore()
 

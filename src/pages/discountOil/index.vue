@@ -10,11 +10,12 @@
   import { BANNER_TYPE, OIL_STATION_TYPE, OIL_TYPE, SORT_OIL } from '@/enums'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
+  import { onPageScroll, onReachBottom } from '@dcloudio/uni-app'
   import { storeToRefs } from 'pinia'
-  import { ref, watch } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
 
   const { safeAreaInsets } = useCacheStore()
-  const { storeLocation } = storeToRefs(useLocationStore())
+  const { storeLocation, hasLocation } = storeToRefs(useLocationStore())
 
   const iconArr = [
     { title: '中石油券', icon: '/oil/coupons.png', url: '' },
@@ -26,13 +27,10 @@
 
   const inputValue = ref('')
   const getOilStationList = ref<OilStation[]>()
-  watch(inputValue, () => {
-    console.log('inputValue', inputValue.value)
-  })
 
+  // 搜索油站
   const handleConfirm = async (value: string) => {
     inputValue.value = value
-
     const OilStationListAll = await getOilStationListAll({
       longitude: storeLocation.value!.longitude,
       latitude: storeLocation.value!.latitude,
@@ -43,8 +41,16 @@
       sort: SORT_OIL.RECOMMEND,
     })
     getOilStationList.value = OilStationListAll.list
-    console.log(getOilStationList.value)
   }
+
+  const oilStationList = ref<OilStation[]>([])
+  let pageSize = ref(8)
+  let totalCount = ref(0)
+  let totalPage = ref(0)
+  // 列表全部数据已加载标识
+  let isDataEnd = ref(false)
+  // 数据初始化
+  let isDataReady = ref(false)
 
   const init = async () => {
     if (hasLocation.value) {
@@ -56,18 +62,36 @@
         type: OIL_STATION_TYPE.ALL,
         oilNo: OIL_TYPE.T92,
         sort: SORT_OIL.RECOMMEND,
-        pageSize: 3,
+        pageSize: pageSize.value,
       })
       oilStationList.value = oilStationListAll.list
+      totalCount.value = oilStationListAll.totalCount
+      totalPage.value = oilStationListAll.totalPage
+      isDataReady.value = true
     }
   }
 
   watch(storeLocation, init, { immediate: true })
+
+  onReachBottom(() => {
+    console.log(111)
+    if (oilStationList.value.length <= totalCount.value) {
+      pageSize.value += 8
+      init()
+    } else {
+      isDataEnd.value = true
+    }
+  })
+
+  // 页面滚动
+  onPageScroll(e => {
+    console.log(e)
+  })
 </script>
 
 <template>
   <view class="discount-oil">
-    <ONav title="优惠加油" />
+    <ONav title="优惠加油" class="nav-bg" />
     <view class="top">
       <OBg :type="'green_white'" />
       <OSearch
@@ -121,7 +145,21 @@
         </scroll-view>
       </view>
     </view>
-    <OilStationCardList :list="" />
+    <view v-if="isDataReady === true && oilStationList.length === 0" class="empty">
+      <image class="bg" :src="loadStaticResource('/bg/empty.png')" />
+      <text>暂无洗车门店～</text>
+    </view>
+    <view
+      v-else
+      class="list"
+      :style="{ paddingTop: '24rpx', paddingBottom: `calc(${safeAreaInsets?.bottom}px + 24rpx)` }">
+      <OilStationCardList :list="oilStationList" />
+      <view v-if="totalPage === 1 || isDataEnd" class="tip">
+        <view class="sep"></view>
+        <text>没有更多了～</text>
+        <view class="sep"></view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -271,6 +309,31 @@
             border: solid 1rpx $o-t;
           }
         }
+      }
+    }
+    .tip {
+      @include flex-center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 32rpx 0;
+      .sep {
+        width: 16rpx;
+        height: 1rpx;
+        background-color: $o-b20;
+        margin: 0 24rpx;
+      }
+    }
+    .empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 24rpx;
+      color: $o-b40;
+      padding: 24rpx 0 32rpx 0;
+      .bg {
+        width: 240rpx;
+        height: 240rpx;
+        margin-bottom: 32rpx;
       }
     }
   }
