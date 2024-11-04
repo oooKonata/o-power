@@ -12,7 +12,7 @@
   import { useLocationStore } from '@/store/location'
   import { onPageScroll, onReachBottom } from '@dcloudio/uni-app'
   import { storeToRefs } from 'pinia'
-  import { onMounted, ref, watch } from 'vue'
+  import { getCurrentInstance, onMounted, reactive, ref, watch } from 'vue'
 
   const { safeAreaInsets } = useCacheStore()
   const { storeLocation, hasLocation } = storeToRefs(useLocationStore())
@@ -26,24 +26,8 @@
   ]
 
   const inputValue = ref('')
-  const getOilStationList = ref<OilStation[]>()
-
-  // 搜索油站
-  const handleConfirm = async (value: string) => {
-    inputValue.value = value
-    const OilStationListAll = await getOilStationListAll({
-      longitude: storeLocation.value!.longitude,
-      latitude: storeLocation.value!.latitude,
-      provinceCode: storeLocation.value!.provinceCode,
-      stationName: inputValue.value,
-      type: OIL_STATION_TYPE.ALL,
-      oilNo: OIL_TYPE.T92,
-      sort: SORT_OIL.RECOMMEND,
-    })
-    getOilStationList.value = OilStationListAll.list
-  }
-
   const oilStationList = ref<OilStation[]>([])
+
   let pageSize = ref(8)
   let totalCount = ref(0)
   let totalPage = ref(0)
@@ -52,29 +36,45 @@
   // 数据初始化
   let isDataReady = ref(false)
 
+  // 油站列表
+  const oilStationListAll = async (value?: string) =>
+    await getOilStationListAll({
+      provinceCode: storeLocation.value!.provinceCode,
+      longitude: storeLocation.value!.longitude,
+      latitude: storeLocation.value!.latitude,
+      stationName: value,
+      type: OIL_STATION_TYPE.ALL,
+      oilNo: OIL_TYPE.T92,
+      sort: SORT_OIL.RECOMMEND,
+      pageSize: pageSize.value,
+    })
+
+  // 初始化油站列表
   const init = async () => {
     if (hasLocation.value) {
-      // 获取油站列表
-      const oilStationListAll = await getOilStationListAll({
-        provinceCode: storeLocation.value!.provinceCode,
-        longitude: storeLocation.value!.longitude,
-        latitude: storeLocation.value!.latitude,
-        type: OIL_STATION_TYPE.ALL,
-        oilNo: OIL_TYPE.T92,
-        sort: SORT_OIL.RECOMMEND,
-        pageSize: pageSize.value,
-      })
-      oilStationList.value = oilStationListAll.list
-      totalCount.value = oilStationListAll.totalCount
-      totalPage.value = oilStationListAll.totalPage
+      const data = await oilStationListAll(inputValue.value)
+      oilStationList.value = data.list
+      totalCount.value = data.totalCount
+      totalPage.value = data.totalPage
       isDataReady.value = true
     }
   }
 
-  watch(storeLocation, init, { immediate: true })
+  // 搜索油站
+  const handleConfirm = (value: string) => {
+    inputValue.value = value
+    init()
+  }
+
+  // 改变定位，更新油站列表，清除搜索输入内容
+  const positionChange = () => {
+    inputValue.value = ''
+    init()
+  }
+
+  watch(storeLocation, positionChange, { immediate: true })
 
   onReachBottom(() => {
-    console.log(111)
     if (oilStationList.value.length <= totalCount.value) {
       pageSize.value += 8
       init()
@@ -84,15 +84,52 @@
   })
 
   // 页面滚动
+  const backgroundOpacity = ref(0)
+  // 滚动固定
+  const isFixed = ref(false)
+  const topHeight = ref(0)
+  const isFixedHeight = ref(0)
+  const instance = getCurrentInstance()
+
+  onMounted(() => {
+    uni
+      .createSelectorQuery()
+      .in(instance)
+      .select('.top')
+      .boundingClientRect(data => {
+        topHeight.value = (data as UniApp.NodeInfo).height!
+        isFixedHeight.value = topHeight.value - 86 - 44 - safeAreaInsets!.top
+      })
+      .exec()
+  })
+
+  const handleTab = (index: number) => {
+    console.log('index-tab', index)
+  }
+
+  const handleTag = (index: number) => {
+    console.log('index-tag', index)
+  }
+
   onPageScroll(e => {
-    console.log(e)
+    backgroundOpacity.value = Math.min(e.scrollTop / 44, 1)
+    if (e.scrollTop >= isFixedHeight.value) {
+      isFixed.value = true
+    } else {
+      isFixed.value = false
+    }
   })
 </script>
 
 <template>
   <view class="discount-oil">
-    <ONav title="优惠加油" class="nav-bg" />
-    <view class="top">
+    <view class="o-nav">
+      <ONav title="优惠加油" :style="{ backgroundColor: `rgba(255,255,255,${backgroundOpacity})` }" />
+    </view>
+    <view
+      class="top"
+      :class="{ 'is-fixed': isFixed }"
+      :style="{ paddingTop: safeAreaInsets?.top + 'px', top: -isFixedHeight + 'px' }">
       <OBg :type="'green_white'" />
       <OSearch
         v-model="inputValue"
@@ -135,13 +172,20 @@
       </view>
       <view class="filter">
         <view class="tabs">
-          <view v-for="(item, index) in 3" :key="index" class="tab">
+          <view v-for="(item, index) in 3" :key="index" class="tab" @click="handleTab(index)">
             <text>智能排序</text>
             <image class="icon" :src="loadStaticResource('/icons/drop.png')" />
           </view>
         </view>
         <scroll-view scroll-x class="tags" show-scrollbar="false">
-          <text v-for="(item, index) in 8" :key="index" class="tag" :class="{ active: index === 0 }">免费洗车</text>
+          <text
+            v-for="(item, index) in 8"
+            :key="index"
+            class="tag"
+            :class="{ active: index === 0 }"
+            @click="handleTag(index)"
+            >免费洗车</text
+          >
         </scroll-view>
       </view>
     </view>
@@ -152,11 +196,14 @@
     <view
       v-else
       class="list"
-      :style="{ paddingTop: '24rpx', paddingBottom: `calc(${safeAreaInsets?.bottom}px + 24rpx)` }">
+      :style="{
+        paddingTop: `calc(${topHeight}px + 24rpx)`,
+        paddingBottom: `calc(${safeAreaInsets?.bottom}px + 24rpx)`,
+      }">
       <OilStationCardList :list="oilStationList" />
-      <view v-if="totalPage === 1 || isDataEnd" class="tip">
+      <view class="tip">
         <view class="sep"></view>
-        <text>没有更多了～</text>
+        <text>{{ totalPage === 1 || isDataEnd ? '没有更多了' : '加载中' }}</text>
         <view class="sep"></view>
       </view>
     </view>
@@ -165,10 +212,15 @@
 
 <style scoped lang="scss">
   .discount-oil {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .top {
       @include flex-column-center;
       background-color: #fff;
       border-radius: 0 0 16rpx 16rpx;
+      // position: ;
       .o-search {
         z-index: 99;
         position: relative;
@@ -177,6 +229,7 @@
         @include flex-center;
         gap: 44rpx;
         padding: 28rpx 0 32rpx 0;
+        height: 160rpx;
         .function {
           @include flex-column-center;
           color: $o-b80;
@@ -276,6 +329,7 @@
             @include flex-center;
             color: $o-b60;
             font-size: 26rpx;
+            line-height: 36rpx;
             .icon {
               width: 16rpx;
               height: 16rpx;
@@ -311,6 +365,11 @@
         }
       }
     }
+    .is-fixed {
+      position: fixed;
+      z-index: 9;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+    }
     .tip {
       @include flex-center;
       font-size: 24rpx;
@@ -329,12 +388,15 @@
       align-items: center;
       font-size: 24rpx;
       color: $o-b40;
-      padding: 24rpx 0 32rpx 0;
+      padding: 64rpx 0 32rpx 0;
       .bg {
         width: 240rpx;
         height: 240rpx;
         margin-bottom: 32rpx;
       }
+    }
+    .list {
+      position: absolute;
     }
   }
 </style>

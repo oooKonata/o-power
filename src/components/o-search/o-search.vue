@@ -11,6 +11,7 @@
       position?: boolean
       weather?: boolean
       placeholder: string
+      modelValue?: string
     }>(),
     {
       type: 'dark',
@@ -47,9 +48,7 @@
 
 <template>
   <view class="o-search">
-    <view
-      class="o-search--search"
-      :class="props.type === 'dark' ? 'o-search--search__dark' : 'o-search--search__light'">
+    <view class="o-search--search" :class="type === 'dark' ? 'o-search--search__dark' : 'o-search--search__light'">
       <view v-if="position" class="position" @click="handleClick">
         <text class="ellipsis">{{
           storeLocation!.city.length <= 3 ? storeLocation!.city : storeLocation!.city.slice(0, 2) + '...'
@@ -61,6 +60,7 @@
         <image class="icon" :src="loadStaticResource('/icons/search.png')" />
         <input
           type="text"
+          :value="modelValue"
           class="input"
           :placeholder="placeholder"
           placeholder-style="font-size:28rpx;color:#999999"
