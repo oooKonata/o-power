@@ -103,14 +103,43 @@
       .exec()
   })
 
+  // 筛选
+  const currentIndex = ref<number | null>()
+  const isMask = ref(false)
+  const filterArr = reactive([
+    { title: '智能排序', mark: 0, arr: ['智能排序', '距离优先', '价格优先'] },
+    { title: '92#', mark: 1, arr: ['0#', '92#', '95#', '98#'] },
+    { title: '全部品牌', mark: 0, arr: ['全部品牌', '中国石油', '民营油站'] },
+  ])
+
   const handleTab = (index: number) => {
-    console.log('index-tab', index)
+    isMask.value = true
+    currentIndex.value = index
+    // uni.pageScrollTo({
+    //   scrollTop: isFixedHeight.value,
+    //   duration: 100,
+    // })
   }
+
+  const handleTabItem = (index: number, tab: (typeof filterArr)[number]) => {
+    tab.mark = index
+    tab.title = tab.arr[index]
+    isMask.value = false
+  }
+
+  watch(
+    isMask,
+    () => {
+      console.log(isMask.value)
+    },
+    { immediate: true }
+  )
 
   const handleTag = (index: number) => {
     console.log('index-tag', index)
   }
 
+  // 导航栏透明度动画（页面滚动）
   onPageScroll(e => {
     backgroundOpacity.value = Math.min(e.scrollTop / 44, 1)
     if (e.scrollTop >= isFixedHeight.value) {
@@ -129,7 +158,7 @@
     <view
       class="top"
       :class="{ 'is-fixed': isFixed }"
-      :style="{ paddingTop: safeAreaInsets?.top + 'px', top: -isFixedHeight + 'px' }">
+      :style="{ paddingTop: safeAreaInsets?.top + 'px', top: isFixed ? -isFixedHeight + 'px' : 0 }">
       <OBg :type="'green_white'" />
       <OSearch
         v-model="inputValue"
@@ -172,9 +201,26 @@
       </view>
       <view class="filter">
         <view class="tabs">
-          <view v-for="(item, index) in 3" :key="index" class="tab" @click="handleTab(index)">
-            <text>智能排序</text>
-            <image class="icon" :src="loadStaticResource('/icons/drop.png')" />
+          <view v-for="(tab, index) in filterArr" :key="index" class="tab" @click="handleTab(index)">
+            <text :style="{ color: currentIndex === index ? '#189269' : '#666666' }">{{ tab.title }}</text>
+            <image
+              :style="{ transform: `rotate(${currentIndex === index ? 180 : 0}deg)` }"
+              class="icon rotate"
+              :src="
+                currentIndex === index ? loadStaticResource('/icons/drop_t.png') : loadStaticResource('/icons/drop.png')
+              " />
+            <view v-if="isMask && currentIndex === index" class="mask">
+              <view class="drop">
+                <view
+                  v-for="(item, index) in tab.arr"
+                  :key="index"
+                  :class="{ active: tab.mark === index }"
+                  class="item"
+                  @click.stop="handleTabItem(index, tab)">
+                  {{ item }}
+                </view>
+              </view>
+            </view>
           </view>
         </view>
         <scroll-view scroll-x class="tags" show-scrollbar="false">
@@ -191,7 +237,7 @@
     </view>
     <view v-if="isDataReady === true && oilStationList.length === 0" class="empty">
       <image class="bg" :src="loadStaticResource('/bg/empty.png')" />
-      <text>暂无洗车门店～</text>
+      <text>暂无结果</text>
     </view>
     <view
       v-else
@@ -220,7 +266,8 @@
       @include flex-column-center;
       background-color: #fff;
       border-radius: 0 0 16rpx 16rpx;
-      // position: ;
+      position: relative;
+      z-index: 9;
       .o-search {
         z-index: 99;
         position: relative;
@@ -311,7 +358,7 @@
             align-items: center;
             height: 36rpx;
             padding: 0 8rpx;
-            border-radius: 6rpx;
+            border-radius: 8rpx;
             background-color: #ff744c;
           }
         }
@@ -322,11 +369,13 @@
         }
       }
       .filter {
+        position: relative;
         .tabs {
-          padding: 32rpx;
           @include flex-between-center;
           .tab {
             @include flex-center;
+            width: 250rpx;
+            height: 100rpx;
             color: $o-b60;
             font-size: 26rpx;
             line-height: 36rpx;
@@ -335,8 +384,47 @@
               height: 16rpx;
               margin-left: 4rpx;
             }
+            &:first-child {
+              padding-left: 32rpx;
+              justify-content: left;
+            }
+            &:last-child {
+              padding-right: 32rpx;
+              justify-content: right;
+            }
+            .mask {
+              position: absolute;
+              top: 100rpx;
+              z-index: 9;
+              left: 0;
+              background-color: $o-b30;
+              width: 100%;
+              height: 100vh;
+              .drop {
+                background-color: #fff;
+                padding: 0 32rpx 32rpx 32rpx;
+                border-radius: 0 0 16rpx 16rpx;
+                @include flex-between-center;
+                gap: 24rpx;
+                .item {
+                  @include flex-center;
+                  height: 64rpx;
+                  flex: 1;
+                  background-color: $o-bg;
+                  border-radius: 999rpx;
+                  color: $o-b60;
+                  font-size: 26rpx;
+                }
+                .active {
+                  color: $o-t;
+                  background-color: $o-t10;
+                  border: 1rpx solid $o-t;
+                }
+              }
+            }
           }
         }
+
         .tags {
           white-space: nowrap;
           color: $o-b60;
@@ -397,6 +485,17 @@
     }
     .list {
       position: absolute;
+    }
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(180deg);
+      }
+    }
+    .rotate {
+      animation: rotate 0.1s ease;
     }
   }
 </style>
