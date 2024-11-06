@@ -7,7 +7,7 @@
   import CarWashCardList from '@/components/Cards/CarWashCardList.vue'
   import OilStationCardList from '@/components/Cards/OilStationCardList.vue'
   import OTags from '@/components/o-tags/o-tags.vue'
-  import { OIL_STATION_TYPE, OIL_TYPE, SORT_CARWASH, SORT_OIL } from '@/enums'
+  import { CARWASH_SORT, OIL_NO, OIL_SORT, OIL_TYPE } from '@/enums'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
   import { storeToRefs } from 'pinia'
@@ -27,9 +27,9 @@
         provinceCode: storeLocation.value!.provinceCode,
         longitude: storeLocation.value!.longitude,
         latitude: storeLocation.value!.latitude,
-        type: OIL_STATION_TYPE.ALL,
-        oilNo: OIL_TYPE.T92,
-        sort: SORT_OIL.RECOMMEND,
+        type: OIL_TYPE.ALL,
+        oilNo: OIL_NO.T92,
+        sort: OIL_SORT.RECOMMEND,
         pageSize: 3,
       })
       oilStationList.value = oilStationListAll.list
@@ -40,7 +40,7 @@
         latitude: storeLocation.value!.latitude,
         pageIndex: 1,
         pageSize: 3,
-        orderCon: SORT_CARWASH.PRICE,
+        orderCon: CARWASH_SORT.PRICE,
         provinceCode: storeLocation.value!.provinceCode,
         cityCode: storeLocation.value!.cityCode,
       })

@@ -1,13 +1,13 @@
-import type { OIL_STATION_TYPE, OIL_TYPE, SORT_OIL } from '@/enums'
+import type { OIL_NO, OIL_SORT, OIL_TYPE } from '@/enums'
 
 export interface OilStationQuery {
   longitude: string
   latitude: string
   provinceCode: string
   stationName?: string
-  type: OIL_STATION_TYPE
-  oilNo: OIL_TYPE
-  sort: SORT_OIL
+  type: OIL_TYPE
+  oilNo: OIL_NO
+  sort: OIL_SORT
   pageSize?: number
   pageIndex?: number
 }

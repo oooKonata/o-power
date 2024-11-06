@@ -40,7 +40,7 @@ export enum BANNER_URL_TYPE {
  * @description 油站类型
  * 不传为全部 1-中石油 2-民营
  */
-export enum OIL_STATION_TYPE {
+export enum OIL_TYPE {
   ALL = 0,
   ZSY = 1,
   MY = 2,
@@ -50,7 +50,7 @@ export enum OIL_STATION_TYPE {
  * @description 油品类
  * 柴油0# 92# 95# 98#
  */
-export enum OIL_TYPE {
+export enum OIL_NO {
   T0 = '0#',
   T92 = '92#',
   T95 = '95#',
@@ -61,7 +61,7 @@ export enum OIL_TYPE {
  * @description 油站排序
  * 1-推荐 2-距离 3-价格
  */
-export enum SORT_OIL {
+export enum OIL_SORT {
   RECOMMEND = 1,
   DISTANCE = 2,
   PRICE = 3,
@@ -71,7 +71,7 @@ export enum SORT_OIL {
  * @description 油站排序
  * 1-价格 2-距离 3-推荐
  */
-export enum SORT_CARWASH {
+export enum CARWASH_SORT {
   PRICE = 1,
   DISTANCE = 2,
   RECOMMEND = 3,

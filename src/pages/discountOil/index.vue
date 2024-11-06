@@ -7,7 +7,7 @@
   import OBg from '@/components/o-bg/o-bg.vue'
   import ONav from '@/components/o-nav/o-nav.vue'
   import OSearch from '@/components/o-search/o-search.vue'
-  import { BANNER_TYPE, OIL_STATION_TYPE, OIL_TYPE, SORT_OIL } from '@/enums'
+  import { BANNER_TYPE, OIL_NO, OIL_SORT, OIL_TYPE } from '@/enums'
   import { useCacheStore } from '@/store/cache'
   import { useLocationStore } from '@/store/location'
   import { onPageScroll, onReachBottom } from '@dcloudio/uni-app'
@@ -31,6 +31,10 @@
   let pageSize = ref(8)
   let totalCount = ref(0)
   let totalPage = ref(0)
+  // 筛选条件
+  let sort = ref<OIL_SORT>(OIL_SORT.RECOMMEND)
+  let oilNo = ref<OIL_NO>(OIL_NO.T92)
+  let type = ref<OIL_TYPE>(OIL_TYPE.ALL)
   // 列表全部数据已加载标识
   let isDataEnd = ref(false)
   // 数据初始化
@@ -43,9 +47,9 @@
       longitude: storeLocation.value!.longitude,
       latitude: storeLocation.value!.latitude,
       stationName: value,
-      type: OIL_STATION_TYPE.ALL,
-      oilNo: OIL_TYPE.T92,
-      sort: SORT_OIL.RECOMMEND,
+      type: type.value,
+      oilNo: oilNo.value,
+      sort: sort.value,
       pageSize: pageSize.value,
     })
 
@@ -105,6 +109,8 @@
 
   // 筛选
   const currentIndex = ref<number | null>()
+  // 箭头旋转角度
+  const rotateAngle = ref<number>(0)
   const isMask = ref(false)
   const filterArr = reactive([
     { title: '智能排序', mark: 0, arr: ['智能排序', '距离优先', '价格优先'] },
@@ -114,6 +120,7 @@
 
   const handleTab = (index: number) => {
     isMask.value = true
+    rotateAngle.value = 180
     currentIndex.value = index
     // uni.pageScrollTo({
     //   scrollTop: isFixedHeight.value,
@@ -125,15 +132,21 @@
     tab.mark = index
     tab.title = tab.arr[index]
     isMask.value = false
-  }
 
-  watch(
-    isMask,
-    () => {
-      console.log(isMask.value)
-    },
-    { immediate: true }
-  )
+    switch (currentIndex.value) {
+      case 0:
+        sort.value = index + 1
+        break
+      case 1:
+        oilNo.value = tab.arr[index] as any
+        break
+      case 2:
+        type.value = index
+        break
+    }
+    rotateAngle.value = 0
+    init()
+  }
 
   const handleTag = (index: number) => {
     console.log('index-tag', index)
@@ -204,7 +217,7 @@
           <view v-for="(tab, index) in filterArr" :key="index" class="tab" @click="handleTab(index)">
             <text :style="{ color: currentIndex === index ? '#189269' : '#666666' }">{{ tab.title }}</text>
             <image
-              :style="{ transform: `rotate(${currentIndex === index ? 180 : 0}deg)` }"
+              :style="{ transform: `rotate(${currentIndex === index ? rotateAngle : 0}deg)` }"
               class="icon rotate"
               :src="
                 currentIndex === index ? loadStaticResource('/icons/drop_t.png') : loadStaticResource('/icons/drop.png')

@@ -2,8 +2,7 @@
   import { loadStaticResource } from '@/assets'
   import { useCacheStore } from '@/store/cache'
 
-  const { safeAreaInsets, osName } = useCacheStore()
-  let bottomInset = osName === 'ios' ? safeAreaInsets!.bottom : 12
+  const { safeAreaInsets } = useCacheStore()
 
   const cardList = [
     {
@@ -24,7 +23,7 @@
 </script>
 
 <template>
-  <view class="card-recomend" :style="{ paddingBottom: bottomInset * 2 + 'rpx' }">
+  <view class="card-recomend" :style="{ paddingBottom: `calc(${safeAreaInsets?.bottom}px + 24rpx)` }">
     <view class="up">
       <text class="title">出行好物</text>
       <view class="more">
